@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ABG.Controllers
 {
@@ -30,8 +33,8 @@ namespace ABG.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("/game")]
-        [HttpGet("{id}")]
+        [HttpGet("GetSingleGameContext")]
+        [EnableCors("default")]
         public JsonResult GetSingleGameContext(int id)
         {
             string query = @"
@@ -57,13 +60,16 @@ namespace ABG.Controllers
 
             return new JsonResult(table);
         }
+
+
         
         /// <summary>
         /// 获取所有的游戏数据，用于首页展示
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult Get()
+        [EnableCors("default")]
+        public JsonResult GetAllGames()
         {
             string query = @"
                 select Game_id,Title, Release_date, Price, ImageUrl from Game
@@ -88,6 +94,34 @@ namespace ABG.Controllers
 
             return new JsonResult(table);
         }
+
+        [HttpGet("GetGameGenre")]
+        [EnableCors("default")]
+        public IActionResult GetGameGenre(int id)
+        {
+            string q = @"SELECT * FROM Gamedb.Game G JOIN Gamedb.Game_Genre GG ON G.Game_id = GG.Game_id JOIN Genre R ON R.Genre_id = R.Genre_id where G.Game_id = '"+ id + @"';
+ ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                connection.Open();
+                using (MySqlCommand mySqlCommand = new MySqlCommand(q, connection))
+                {
+                    myReader = mySqlCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    connection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
 
         // [HttpGet]
         // public IEnumerable<Game> Get()

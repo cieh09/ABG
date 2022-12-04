@@ -20,6 +20,7 @@ namespace ABG
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,7 +32,14 @@ namespace ABG
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             // JSON Serializable
             services.AddControllersWithViews().AddNewtonsoftJson(options => 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -52,21 +60,34 @@ namespace ABG
                 app.UseHsts();
             }
 
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
-
+            app.UseAuthentication();
             app.UseRouting();
-
+            // app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200/"));
+            app.UseCors(builder => builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            // app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller}/{action=Index}/{id?}");
+            //});
 
             app.UseSpa(spa =>
             {
