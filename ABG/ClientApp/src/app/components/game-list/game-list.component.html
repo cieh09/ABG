@@ -18,6 +18,9 @@
                                 <img src="{{p.ImageUrl}}" class="img-responsive">
                             </a>
                             <!-- Product details-->
+                            <a (click)="navigateToGame(p)">View details</a>
+                            <app-game-details [GameId]="p.Game_id"></app-game-details>
+
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->

@@ -1,41 +1,73 @@
 ﻿<Properties StartupConfiguration="{F77C6F2D-D2A0-4893-823E-349B5813B306}|Default">
-  <MonoDevelop.Ide.ItemProperties.ABG PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.ABG PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ABG/Controllers/GameController.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ABG/Controllers/UserController.cs">
     <Files>
-      <File FileName="ABG/appsettings.json" Line="14" Column="1" />
-      <File FileName="ABG/WeatherForecast.cs" Line="9" Column="42" />
-      <File FileName="ABG/Program.cs" Line="1" Column="1" />
-      <File FileName="ABG/Startup.cs" Line="31" Column="14" />
-      <File FileName="ABG/Properties/launchSettings.json" Line="9" Column="5" />
-      <File FileName="ABG/Controllers/WeatherForecastController.cs" Line="16" Column="28" />
-      <File FileName="ABG/DataLayer/EmptyClass.cs" Line="11" Column="10" />
-      <File FileName="ABG/Entities/Genre.cs" Line="12" Column="1" />
-      <File FileName="ABG/Entities/User.cs" Line="13" Column="36" />
-      <File FileName="ABG/Entities/PremiumSale.cs" Line="8" Column="1" />
+      <File FileName="ABG/Program.cs" Line="16" Column="1" />
+      <File FileName="ABG/Startup.cs" Line="72" Column="22" />
+      <File FileName="ABG/appsettings.json" Line="3" Column="67" />
+      <File FileName="ABG/Controllers/UserController.cs" Line="1" Column="1" />
+      <File FileName="ABG/Controllers/PermiumSaleController.cs" Line="1" Column="1" />
+      <File FileName="ABG/Controllers/GameController.cs" Line="100" Column="42" />
+      <File FileName="ABG/Entities/Game.cs" Line="12" Column="1" />
+      <File FileName="ABG/Entities/Genre.cs" Line="1" Column="1" />
+      <File FileName="ABG/Entities/PremiumSale.cs" Line="1" Column="1" />
+      <File FileName="ABG/Entities/User.cs" Line="1" Column="1" />
+      <File FileName="ABG/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="ABG/DataLayer/OrganizationDbContext.cs" Line="12" Column="1" />
+      <File FileName="ABG/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="ABG/Entities/Friend.cs" Line="1" Column="1" />
+      <File FileName="ABG/Pages/_ViewImports.cshtml" Line="1" Column="1" />
+      <File FileName="ABG/Pages/Error.cshtml" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/index.html" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/home/home.component.ts" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/home/home.component.html" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/components/game-details/game-details.component.ts" Line="26" Column="38" />
+      <File FileName="ABG/ClientApp/src/app/components/game-details/game-details.component.html" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/components/game-list/game-list.component.css" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/components/game-list/game-list.component.html" Line="22" Column="58" />
+      <File FileName="ABG/ClientApp/src/app/components/game-list/game-list.component.ts" Line="15" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/services/shared.service.ts" Line="22" Column="57" />
+      <File FileName="ABG/ClientApp/src/app/app.component.html" Line="4" Column="6" />
+      <File FileName="ABG/ClientApp/src/app/app.server.module.ts" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/app.module.ts" Line="39" Column="9" />
+      <File FileName="ABG/ClientApp/src/app/app.component.ts" Line="1" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/common/game.ts" Line="6" Column="1" />
+      <File FileName="ABG/ClientApp/src/app/common/genre.ts" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ABG" expanded="True">
             <Node name="ABG" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
-              <Node name="DataLayer" expanded="True" />
-              <Node name="Entities" expanded="True" />
+              <Node name="ClientApp" expanded="True">
+                <Node name="src" expanded="True">
+                  <Node name="app" expanded="True">
+                    <Node name="common" expanded="True" />
+                    <Node name="components" expanded="True">
+                      <Node name="game-details" expanded="True" />
+                      <Node name="game-list" expanded="True" />
+                    </Node>
+                    <Node name="services" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="Controllers" expanded="True">
+                <Node name="UserController.cs" selected="True" />
+              </Node>
+              <Node name="Pages" expanded="True" />
               <Node name="Properties" expanded="True" />
+              <Node name="wwwroot" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

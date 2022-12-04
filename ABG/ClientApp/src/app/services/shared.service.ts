@@ -15,12 +15,12 @@ export class SharedService {
   }
 
   getGameList(): Observable<any[]>{
-    return this.httpClient.get<any>(this.baseUrl + '/game');
+    return this.httpClient.get<any>(this.baseUrl + '/Game');
   }
 
-  getSingleGameContext(gameId: number): Observable<Game> {
+  getSingleGameContext(gameId: number): Observable<any> {
     // const gameUrl = `${this.baseUrl}/game/${gameId}`;
     console.log("running" + gameId);
-    return this.httpClient.get<Game>(this.baseUrl + '/game/' + gameId);
+      return this.httpClient.get<any>(this.baseUrl + '/Game/GetSingleGameContext?id=' + gameId);
   }
 }

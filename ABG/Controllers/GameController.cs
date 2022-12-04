@@ -38,27 +38,42 @@ namespace ABG.Controllers
         public JsonResult GetSingleGameContext(int id)
         {
             string query = @"
-                select Title, Release_date, Price, ImageUrl from Game where Game_id = '"+ id +@"';
-            ";
+                select * from Game where Game_id = '" + id + "'";
+            var sqlcmd = new MySqlCommand(query);
             
-            DataTable table = new DataTable();
+            
+            //DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            MySqlDataReader myReader;
             
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
+                sqlcmd.Connection = connection;
+
                 connection.Open();
                 using (MySqlCommand mySqlCommand = new MySqlCommand(query, connection))
                 {
-                    myReader = mySqlCommand.ExecuteReader();
-                    table.Load(myReader);
+                    Game obj = new Game();
+                    using var reader = sqlcmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+
+                         obj.Game_id = Convert.ToInt32(reader[0]);
+                        obj.Title = reader[1].ToString();
+                        obj.Release_date = Convert.ToInt32(reader[2]);
+                        obj.Price = Convert.ToDouble(reader[3]);
+                        obj.ImageUrl = reader[4].ToString();
+                    }
+                   
                     
-                    myReader.Close();
+                    //table.Load(myReader);
+                    
+                    //myReader.Close();
                     connection.Close();
+                    return new JsonResult(obj);
+
                 }
             }
 
-            return new JsonResult(table);
         }
 
 
