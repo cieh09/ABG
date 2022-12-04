@@ -11,6 +11,8 @@ namespace ABG
         public DateTime Release_date { get; set; }
 
         public int Price { get; set; }
+        
+        public string ImageUrl { get; set; }
     }
 }
 

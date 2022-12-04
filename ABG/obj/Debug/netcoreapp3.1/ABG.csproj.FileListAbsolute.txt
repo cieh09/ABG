@@ -169,3 +169,8 @@
 /Users/qqq/RiderProjects/ABG/ABG/obj/Debug/netcoreapp3.1/ABG.dll
 /Users/qqq/RiderProjects/ABG/ABG/obj/Debug/netcoreapp3.1/ABG.pdb
 /Users/qqq/RiderProjects/ABG/ABG/obj/Debug/netcoreapp3.1/ABG.genruntimeconfig.cache
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/MySqlConnector.dll
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.JsonPatch.dll
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll
