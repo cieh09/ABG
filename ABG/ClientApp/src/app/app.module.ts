@@ -14,16 +14,12 @@ import { GameListComponent } from './components/game-list/game-list.component'
 import { SharedService } from './services/shared.service';;
 import { Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';;
-import { RegisterComponent } from './components/register/register.component'
-
-// const routes : Routes = [
-//   { path: 'game/:Id', component: GameDetailsComponent },
-//   { path: '', redirectTo: '/game', pathMatch: 'full' },
-//   { path: '**', redirectTo: '/game', pathMatch: 'full' },
-//   { path: '', component: HomeComponent, pathMatch: 'full' },
-//   { path: 'counter', component: CounterComponent },
-//   { path: 'fetch-data', component: FetchDataComponent }
-// ];
+import { RegisterComponent } from './components/register/register.component';
+import { MembershipComponent } from './components/membership/membership.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { FriendComponent } from './components/friend/friend.component';
+import { LoginComponent } from './components/login/login.component';;
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +30,12 @@ import { RegisterComponent } from './components/register/register.component'
     FetchDataComponent,
     GameListComponent,
     GameDetailsComponent ,
-    RegisterComponent],
+    RegisterComponent,
+    FriendComponent,
+    ArchiveComponent,
+    MembershipComponent,
+    LoginComponent,
+    ShoppingCartComponent,],
   imports: [
       BrowserModule,
       AppRoutingModule,

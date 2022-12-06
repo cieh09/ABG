@@ -19,12 +19,15 @@ export class SharedService {
   }
 
   getSingleGameContext(gameId: number): Observable<any> {
-    // const gameUrl = `${this.baseUrl}/game/${gameId}`;
     console.log("running" + gameId);
       return this.httpClient.get<any>(this.baseUrl + '/Game/GetSingleGameContext?id=' + gameId);
   }
 
   validateUserInfo(userInfo): Observable<any>{
     return this.httpClient.post<any>(this.baseUrl + '/User/GetUserInfo', userInfo);
+  }
+
+  writeNewUserInfo(userInfo): Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
   }
 }

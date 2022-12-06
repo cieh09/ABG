@@ -50,28 +50,22 @@ namespace ABG.Controllers
                 sqlcmd.Connection = connection;
 
                 connection.Open();
-                using (MySqlCommand mySqlCommand = new MySqlCommand(query, connection))
+                Game obj = new Game();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    Game obj = new Game();
-                    using var reader = sqlcmd.ExecuteReader();
-                    if (reader.Read())
-                    {
 
-                        obj.Game_id = Convert.ToInt32(reader[0]);
-                        obj.Title = reader[1].ToString();
-                        obj.Release_date = Convert.ToInt32(reader[2]);
-                        obj.Price = Convert.ToDouble(reader[3]);
-                        obj.ImageUrl = reader[4].ToString();
-                    }
-                    connection.Close();
-                    return new JsonResult(obj);
+                    obj.Game_id = Convert.ToInt32(reader[0]);
+                    obj.Title = reader[1].ToString();
+                    obj.Release_date = Convert.ToInt32(reader[2]);
+                    obj.Price = Convert.ToDouble(reader[3]);
+                    obj.ImageUrl = reader[4].ToString();
                 }
+                connection.Close();
+                return new JsonResult(obj);
             }
-
         }
 
-
-        
         /// <summary>
         /// 获取所有的游戏数据，用于首页展示
         /// </summary>
@@ -123,6 +117,33 @@ namespace ABG.Controllers
                     myReader = mySqlCommand.ExecuteReader();
                     table.Load(myReader);
 
+                    myReader.Close();
+                    connection.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        // works
+        [HttpGet("GetAllGamesByUserId")]
+        public JsonResult GetAllGamesByUserId(int user_id)
+        {
+            string query = @"
+                select * from User_Buy_Game where User_id = '" + user_id + "'";
+            
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
+            
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                connection.Open();
+                using (MySqlCommand mySqlCommand = new MySqlCommand(query, connection))
+                {
+                    myReader = mySqlCommand.ExecuteReader();
+                    table.Load(myReader);
+                    
                     myReader.Close();
                     connection.Close();
                 }

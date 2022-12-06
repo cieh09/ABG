@@ -12,10 +12,12 @@ import { SharedService } from 'src/app/services/shared.service';
 
 export class RegisterComponent implements OnInit {
 
-  register: Register = new Register();
   registerForm: FormGroup;
   user: User = new User();
-  constructor(private http: HttpClient, private fb: FormBuilder, private shardService: SharedService)  { }
+  constructor(
+    private http: HttpClient, 
+    private fb: FormBuilder, 
+    private shardService: SharedService)  { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -28,29 +30,30 @@ export class RegisterComponent implements OnInit {
 
   loginSubmit(){
     if(this.registerForm.valid){
-      console.log(this.registerForm.value);
+      if(this.registerForm.value.password == this.registerForm.value.re_password){
+        console.log(this.registerForm.value);
 
       this.shardService.validateUserInfo(this.registerForm.value).subscribe(data => {
-        // data = JSON.parse(data.toString());
         this.user = data;
-        if(this.user.Name != null){
-          alert("Successful!");
+        if(this.user.Name == null){
+          this.shardService.writeNewUserInfo(this.registerForm.value).subscribe(data => {
+            this.user = data;
+          });
+          alert("Successfully create an account!");
+          // TODO: 跳转到首页，或是user页面
+          // this.router.navigate(['/user-pages']);
         }
         else{
           alert("No such user!");
         }
       });
+      }
+      else{
+        alert("Two passwords are not same!")
+      }
     }
     else{
       alert("Info is not valid!!");
     }
   }
-  // registerForm = new FormGroup((
-  //   name = new FormControl("");
-  // ));
-}
-
-export class Register{
-  name: string;
-  password: string;
 }
