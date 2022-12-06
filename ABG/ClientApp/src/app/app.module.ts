@@ -13,7 +13,8 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
 import { GameListComponent } from './components/game-list/game-list.component'
 import { SharedService } from './services/shared.service';;
 import { Routes } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';;
+import { RegisterComponent } from './components/register/register.component'
 
 // const routes : Routes = [
 //   { path: 'game/:Id', component: GameDetailsComponent },
@@ -32,7 +33,8 @@ import { AppRoutingModule } from './app-routing.module';
     CounterComponent,
     FetchDataComponent,
     GameListComponent,
-    GameDetailsComponent ],
+    GameDetailsComponent ,
+    RegisterComponent],
   imports: [
       BrowserModule,
       AppRoutingModule,

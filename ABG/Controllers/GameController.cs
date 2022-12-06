@@ -57,20 +57,14 @@ namespace ABG.Controllers
                     if (reader.Read())
                     {
 
-                         obj.Game_id = Convert.ToInt32(reader[0]);
+                        obj.Game_id = Convert.ToInt32(reader[0]);
                         obj.Title = reader[1].ToString();
                         obj.Release_date = Convert.ToInt32(reader[2]);
                         obj.Price = Convert.ToDouble(reader[3]);
                         obj.ImageUrl = reader[4].ToString();
                     }
-                   
-                    
-                    //table.Load(myReader);
-                    
-                    //myReader.Close();
                     connection.Close();
                     return new JsonResult(obj);
-
                 }
             }
 
@@ -136,21 +130,6 @@ namespace ABG.Controllers
 
             return new JsonResult(table);
         }
-
-
-        // [HttpGet]
-        // public IEnumerable<Game> Get()
-        // {
-        //     // TODO: Return list of games
-        //     var rng = new Random();
-        //     return null;
-        // }
-        //
-        // [HttpPost]
-        // public IActionResult Create()
-        // {
-        //     return RedirectToAction("");
-        // }
     }
 }
 

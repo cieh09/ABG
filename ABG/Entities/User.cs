@@ -4,7 +4,7 @@ namespace ABG
 {
     public class User
     {
-        public Guid User_id { get; set; }
+        public int User_id { get; set; }
 
         public string Name { get; set; }
 

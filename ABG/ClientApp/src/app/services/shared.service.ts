@@ -23,4 +23,8 @@ export class SharedService {
     console.log("running" + gameId);
       return this.httpClient.get<any>(this.baseUrl + '/Game/GetSingleGameContext?id=' + gameId);
   }
+
+  validateUserInfo(userInfo): Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + '/User/GetUserInfo', userInfo);
+  }
 }
