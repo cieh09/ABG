@@ -68,4 +68,14 @@ export class CartService {
 
     console.log(c_totalPrice, c_totalQuantity);
   }
+
+  removeCartItem(item: CartItem){
+    const index = this.cartItems.findIndex(t => t.id === item.id);
+
+    if(index > -1){
+      this.cartItems.splice(index, 1);
+    }
+
+    this.computePrice();
+  }
 }
