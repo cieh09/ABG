@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../common/game';
-import { UserLogin } from '../common/userlogin';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +24,8 @@ export class SharedService {
       return this.httpClient.get<any>(this.baseUrl + '/Game/GetSingleGameContext?id=' + gameId);
   }
 
-  validateUserInfo(userLogin: UserLogin): Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + '/User/GetUserInfo', userLogin);
+  validateUserInfo(userInfo): Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + '/User/GetUserInfo', userInfo);
   }
 
   writeNewUserInfo(userInfo): Observable<any>{
