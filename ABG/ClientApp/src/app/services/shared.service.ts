@@ -8,6 +8,7 @@ import { Game } from '../common/game';
 })
 export class SharedService {
 
+  storage: Storage = sessionStorage;
   game: Game = new Game;
   private baseUrl = 'https://localhost:5001/api'; 
 
@@ -29,5 +30,9 @@ export class SharedService {
 
   writeNewUserInfo(userInfo): Observable<any>{
     return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
+  }
+
+  persistUserInfo(){
+    // this.storage.setItem("User", JSON.stringify(this.loginForm.value));
   }
 }

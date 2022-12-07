@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/common/user';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -14,10 +15,12 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   user: User = new User();
+
   constructor(
     private http: HttpClient, 
     private fb: FormBuilder, 
-    private shardService: SharedService)  { }
+    private shardService: SharedService,
+    private router: Router)  { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -40,6 +43,7 @@ export class RegisterComponent implements OnInit {
             this.user = data;
           });
           alert("Successfully create an account!");
+          this.router.navigateByUrl('');
           // TODO: 跳转到首页，或是user页面
           // this.router.navigate(['/user-pages']);
         }

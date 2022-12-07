@@ -20,7 +20,9 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { FriendComponent } from './components/friend/friend.component';
 import { LoginComponent } from './components/login/login.component';;
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component'
-
+;
+import { ShoppingCartStatusComponent } from './components/shopping-cart-status/shopping-cart-status.component'
+import { CartService } from './services/cart.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     ArchiveComponent,
     MembershipComponent,
     LoginComponent,
-    ShoppingCartComponent,],
+    ShoppingCartComponent,
+    ShoppingCartStatusComponent],
   imports: [
       BrowserModule,
       AppRoutingModule,
@@ -43,7 +46,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
       FormsModule,
       ReactiveFormsModule
     ],
-    providers: [SharedService],
+    providers: [SharedService, CartService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
