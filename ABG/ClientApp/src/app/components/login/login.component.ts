@@ -45,8 +45,10 @@ export class LoginComponent implements OnInit {
         }else{
           alert("Login failed.");
         }
-        localStorage.setItem('username', this.user.Name);
+        localStorage.setItem('name', this.user.Name);
         localStorage.setItem('email', this.user.User_email);
+        localStorage.setItem('id', this.user.User_id.toString());
+        localStorage.setItem('password', this.user.User_password)
       }); 
     }
     else{
