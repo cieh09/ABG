@@ -6,10 +6,20 @@ import { CartItem } from '../common/cart-item';
 })
 export class CartService {
 
+  session: Storage = localStorage;
   cartItems: CartItem[] = [];
   totalPrice: Subject<number> = new BehaviorSubject<number>(0); 
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0); 
-  constructor() { }
+
+  constructor() { 
+    // 刷新页面走构造函数，重新赋值
+    let pageSession = JSON.parse(this.session.getItem('cartItems'));
+
+    if(pageSession != null){
+      this.cartItems = pageSession;
+      this.computePrice();
+    }
+  }
 
   addToCart(tempCartItem: CartItem){
     // 看看是否有相同的商品在购物车
@@ -40,6 +50,7 @@ export class CartService {
     }
 
     this.computePrice();
+    this.storeCartItems();
   }
 
   computePrice() {
@@ -67,5 +78,20 @@ export class CartService {
     }
 
     console.log(c_totalPrice, c_totalQuantity);
+  }
+
+  removeCartItem(item: CartItem){
+    const index = this.cartItems.findIndex(t => t.id === item.id);
+
+    if(index > -1){
+      this.cartItems.splice(index, 1);
+    }
+
+    this.computePrice();
+    this.storeCartItems();
+  }
+
+  storeCartItems(){
+    this.session.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 }

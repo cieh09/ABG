@@ -6,6 +6,8 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './shopping-cart-status.component.html',
   styleUrls: ['./shopping-cart-status.component.css']
 })
+
+// 首页购物车图标
 export class ShoppingCartStatusComponent implements OnInit {
 
   totalPrice: number = 0;
