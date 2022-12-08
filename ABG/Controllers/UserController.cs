@@ -147,7 +147,7 @@ namespace ABG.Controllers
             try
             {
                 String query = @"
-                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password 
+                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password
                             + "' WHERE User_id = '" + userInfo.User_id + "'";
 
                 var sqlcmd = new MySqlCommand(query);
@@ -170,11 +170,47 @@ namespace ABG.Controllers
                     connection.Close();
                 }
 
-                    return HttpStatusCode.Accepted;
+                return HttpStatusCode.Accepted;
             }
             catch (Exception ex)
             {
                 return HttpStatusCode.BadRequest;
+            }
+        }
+
+        [HttpGet("VerifyUserRegister")]
+        public HttpStatusCode VerifyUserRegister(string name)
+        {
+            string query = @"
+                select * from User where Name = '" + name + "'";
+            var sqlcmd = new MySqlCommand(query);
+
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                User obj = new User();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    obj.User_id = Convert.ToInt32(reader[0]);
+                    obj.Name = reader[1].ToString();
+                    obj.User_email = reader[2].ToString();
+                    obj.User_password = reader[3].ToString();
+                }
+                connection.Close();
+                if (obj.User_id != 0)
+                {
+                    return HttpStatusCode.OK;
+                }
+                else
+                {
+                    return HttpStatusCode.NotFound;
+                }
             }
         }
 
