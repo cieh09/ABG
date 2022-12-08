@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+      <div class="container-fluid">
+          <div class="container px-5 px-lg-5 mt-5">
+              <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+                  <div class="col mb-5" *ngFor="let p of games">
+                      <div class="card h-100">
+                          <!-- Sale badge-->
+                          <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Owned</div>
+                          <!-- Product image-->
+                          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                          <!-- Product details-->
+                          <div class="card-body p-4">
+                              <div class="text-center">
+                                  <!-- Product name-->
+                                  <h5 class="fw-bolder">{{p.Title}}</h5>
+                              </div>
+                          </div>
+                          <div class="card-body">
+                            <!-- 加点描述？-->
+                            <p class="card-text"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group">
+                                <!-- <button type="button" class="btn btn-sm btn-outline-secondary">View</button> -->
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Download</button>
+                              </div>
+                              <small class="text-muted">Released Date: {{p.Release_date}}</small>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

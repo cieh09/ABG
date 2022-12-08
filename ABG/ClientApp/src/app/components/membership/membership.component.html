@@ -1,0 +1,44 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Choose A Membership Level</h1>
+  </div>
+
+  <div class="container">
+    <div class="card-deck mb-3 text-center">
+      <div class="card mb-4 box-shadow">
+        <!--TODO: 判断用户是否是会员-->
+        <!-- <div *ngIf="user == 0">
+          <div class="alert alert-warning col-md-12" role="alert">
+            Your shopping cart is empty!
+          </div>
+        </div> -->
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Free</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <br>
+            <br>
+            <br>
+            <br>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="register">Sign up for free</button>
+        </div>
+      </div>
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Pro</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <br>
+            <li>10% off on game purchases</li>
+            <br>
+            <br>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+        </div>
+      </div>
+    </div>
+  </div>

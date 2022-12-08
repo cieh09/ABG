@@ -184,3 +184,4 @@
 /Users/sophie/Desktop/ABG/ABG/bin/Debug/netcoreapp3.1/Microsoft.Owin.dll
 /Users/sophie/Desktop/ABG/ABG/bin/Debug/netcoreapp3.1/Microsoft.Owin.Cors.dll
 /Users/sophie/Desktop/ABG/ABG/bin/Debug/netcoreapp3.1/Owin.dll
+/Users/qqq/RiderProjects/ABG/ABG/bin/Debug/netcoreapp3.1/Microsoft.Owin.Cors.dll

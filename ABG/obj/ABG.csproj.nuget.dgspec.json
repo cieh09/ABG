@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sophie/Desktop/ABG/ABG/ABG.csproj": {}
+    "/Users/qqq/RiderProjects/ABG/ABG/ABG.csproj": {}
   },
   "projects": {
-    "/Users/sophie/Desktop/ABG/ABG/ABG.csproj": {
+    "/Users/qqq/RiderProjects/ABG/ABG/ABG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sophie/Desktop/ABG/ABG/ABG.csproj",
+        "projectUniqueName": "/Users/qqq/RiderProjects/ABG/ABG/ABG.csproj",
         "projectName": "ABG",
-        "projectPath": "/Users/sophie/Desktop/ABG/ABG/ABG.csproj",
-        "packagesPath": "/Users/sophie/.nuget/packages/",
-        "outputPath": "/Users/sophie/Desktop/ABG/ABG/obj/",
+        "projectPath": "/Users/qqq/RiderProjects/ABG/ABG/ABG.csproj",
+        "packagesPath": "/Users/qqq/.nuget/packages/",
+        "outputPath": "/Users/qqq/RiderProjects/ABG/ABG/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sophie/.nuget/NuGet/NuGet.Config"
+          "/Users/qqq/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -24,7 +24,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -36,7 +35,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -69,25 +67,10 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.osx-x64",
-              "version": "[3.1.31, 3.1.31]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[3.1.0, 3.1.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -96,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Users/qqq/dotnet 3.1/x64/sdk/3.1.425/RuntimeIdentifierGraph.json"
         }
       }
     }

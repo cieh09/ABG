@@ -8,6 +8,7 @@ import { Game } from '../common/game';
 })
 export class SharedService {
 
+  storage: Storage = sessionStorage;
   game: Game = new Game;
   private baseUrl = 'https://localhost:5001/api'; 
 
@@ -19,8 +20,24 @@ export class SharedService {
   }
 
   getSingleGameContext(gameId: number): Observable<any> {
-    // const gameUrl = `${this.baseUrl}/game/${gameId}`;
     console.log("running" + gameId);
       return this.httpClient.get<any>(this.baseUrl + '/Game/GetSingleGameContext?id=' + gameId);
+  }
+
+  validateUserInfo(userInfo): Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + '/User/GetUserInfo', userInfo);
+  }
+
+  writeNewUserInfo(userInfo): Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
+  }
+
+  getGamesByUserId(user_id: number): Observable<any[]>{
+    console.log("running getGamesByUserId" + user_id);
+    return this.httpClient.get<any>(this.baseUrl + '/Game/GetAllGamesByUserId?user_id=' + user_id);
+  }
+
+  getVaildMembership(id: number): Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + "/User/GetUserPremiumId?id=" + id);
   }
 }
