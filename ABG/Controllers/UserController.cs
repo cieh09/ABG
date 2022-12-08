@@ -179,10 +179,10 @@ namespace ABG.Controllers
         }
 
         [HttpGet("VerifyUserRegister")]
-        public HttpStatusCode VerifyUserRegister(string name)
+        public int VerifyUserRegister(string name)
         {
             string query = @"
-                select * from User where Name = '" + name + "'";
+                select count(*) from Gamedb.User where Name = '" + name + "'";
             var sqlcmd = new MySqlCommand(query);
 
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -192,25 +192,15 @@ namespace ABG.Controllers
                 sqlcmd.Connection = connection;
 
                 connection.Open();
-                User obj = new User();
+                int i = 0;
                 using var reader = sqlcmd.ExecuteReader();
                 if (reader.Read())
                 {
 
-                    obj.User_id = Convert.ToInt32(reader[0]);
-                    obj.Name = reader[1].ToString();
-                    obj.User_email = reader[2].ToString();
-                    obj.User_password = reader[3].ToString();
+                    i = Convert.ToInt32(reader[0]);
                 }
                 connection.Close();
-                if (obj.User_id != 0)
-                {
-                    return HttpStatusCode.OK;
-                }
-                else
-                {
-                    return HttpStatusCode.NotFound;
-                }
+                return i;
             }
         }
 

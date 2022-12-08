@@ -66,4 +66,8 @@ export class SharedService {
     // var g_id = 'game_id=' + game_id;
     this.httpClient.post<any>(this.baseUrl + 'Game/Checkout', checkout);
   }
+
+  verifyUserRegister(name: string): Observable<number>{
+    return this.httpClient.get<number>(this.baseUrl + '/User/VerifyUserRegister?name=' +name)
+  }
 }
