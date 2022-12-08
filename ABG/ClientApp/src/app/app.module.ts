@@ -25,9 +25,21 @@ import { SharedService } from './services/shared.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
-import { MatSelectModule } from '@angular/material';
+import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonToggleModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatExpansionModule, MatGridListModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTooltipModule, MatTreeModule } from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
+import { FriendDetailsComponent } from './components/friend-details/friend-details.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { A11yModule } from '@angular/cdk/a11y';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -44,7 +56,10 @@ import { MatSelectModule } from '@angular/material';
     MembershipComponent,
     LoginComponent,
     ShoppingCartComponent,
-    ShoppingCartStatusComponent],
+    ShoppingCartStatusComponent,
+    FriendDetailsComponent,
+    DialogComponent
+  ],
   imports: [
       BrowserModule,
       AppRoutingModule,
@@ -57,10 +72,50 @@ import { MatSelectModule } from '@angular/material';
       MatIconModule,
       BrowserAnimationsModule,
       MatInputModule,
-      MatSelectModule
+      MatSelectModule,
+      MatCardModule,
+      MatDialogModule,
+      RouterModule,
+      NoopAnimationsModule,
+      A11yModule,
+      CdkStepperModule,
+      CdkTableModule,
+      CdkTreeModule,
+      DragDropModule,
+      MatAutocompleteModule,
+      MatBadgeModule,
+      MatBottomSheetModule,
+      MatButtonToggleModule,
+      MatCheckboxModule,
+      MatChipsModule,
+      MatStepperModule,
+      MatDatepickerModule,
+      MatDividerModule,
+      MatExpansionModule,
+      MatGridListModule,
+      MatListModule,
+      MatMenuModule,
+      MatNativeDateModule,
+      MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatTreeModule,
+    OverlayModule,
+    PortalModule,
+    ScrollingModule
     ],
     providers: [SharedService, CartService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent], 
+    entryComponents: [DialogComponent]
 })
 export class AppModule { }
 

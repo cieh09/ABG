@@ -74,10 +74,8 @@ namespace ABG.Controllers
         [HttpGet("GetUserInfoById")]
         public JsonResult GetUserInfoById(int id)
         {
-
             string query = @"
                 select * from User where User_id = '" + id + "'";
-
             var sqlcmd = new MySqlCommand(query);
 
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -87,17 +85,18 @@ namespace ABG.Controllers
                 sqlcmd.Connection = connection;
 
                 connection.Open();
-                User user = new User();
+                User obj = new User();
                 using var reader = sqlcmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    user.User_id = Convert.ToInt32(reader[0]);
-                    user.Name = reader[1].ToString();
-                    user.User_email = reader[2].ToString();
-                    user.User_password = reader[3].ToString();
+
+                    obj.User_id = Convert.ToInt32(reader[0]);
+                    obj.Name = reader[1].ToString();
+                    obj.User_email = reader[2].ToString();
+                    obj.User_password = reader[3].ToString();
                 }
                 connection.Close();
-                return new JsonResult(user);
+                return new JsonResult(obj);
             }
         }
 
@@ -178,6 +177,7 @@ namespace ABG.Controllers
                 return HttpStatusCode.BadRequest;
             }
         }
+
 
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
