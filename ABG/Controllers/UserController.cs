@@ -1,10 +1,13 @@
 using System;
 using System.Data;
+using System.Net;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ABG.Controllers
 {
@@ -18,7 +21,7 @@ namespace ABG.Controllers
         {
             _configuration = configuration;
         }
-        
+
         /// <summary>
         /// 验证用户账号密码是否正确的函数
         /// 前端传过来的object内包含name, password等信息，去sql内查是否有对应的信息
@@ -34,13 +37,13 @@ namespace ABG.Controllers
 
             string name = (string)jObject.SelectToken("name");
             string password = (string)jObject.SelectToken("password");
-            
+
             string query = @"
-                select * from User where Name = '"+ name + @"' and User_password = '"+ password + @"'
+                select * from User where Name = '" + name + @"' and User_password = '" + password + @"'
             ";
-            
+
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            
+
             var sqlcmd = new MySqlCommand(query);
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
@@ -48,7 +51,7 @@ namespace ABG.Controllers
                 connection.Open();
                 User user = new User();
                 using var reader = sqlcmd.ExecuteReader();
-                
+
                 if (reader.Read())
                 {
                     user.User_id = Convert.ToInt32(reader[0]);
@@ -60,7 +63,7 @@ namespace ABG.Controllers
                 return new JsonResult(user);
             }
         }
-        
+
         // works
         /// <summary>
         /// 通过user_id查这个user的所有信息
@@ -71,14 +74,14 @@ namespace ABG.Controllers
         [HttpGet("GetUserInfoById")]
         public JsonResult GetUserInfoById(int id)
         {
-            
+
             string query = @"
                 select * from User where User_id = '" + id + "'";
-            
+
             var sqlcmd = new MySqlCommand(query);
-            
+
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            
+
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
                 sqlcmd.Connection = connection;
@@ -113,8 +116,8 @@ namespace ABG.Controllers
             string email = (string)jObject.SelectToken("email");
             string password = (string)jObject.SelectToken("password");
 
-            string query = @"insert into User (Name, User_email, User_password) values ('"+ name +@"', '"+ email +@"', '"+ password +@"')";
-            
+            string query = @"insert into User (Name, User_email, User_password) values ('" + name + @"', '" + email + @"', '" + password + @"')";
+
             var sqlcmd = new MySqlCommand(query);
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
 
@@ -124,7 +127,7 @@ namespace ABG.Controllers
                 connection.Open();
                 User user = new User();
                 using var reader = sqlcmd.ExecuteReader();
-                
+
                 // 插入后没有返回值
                 if (reader.Read())
                 {
@@ -137,6 +140,43 @@ namespace ABG.Controllers
                 return new JsonResult("Successfully write new user info to the database!");
             }
         }
+
+
+        [HttpPut("UpdateUser")]
+        public HttpStatusCode UpdateUser(User userInfo)
+        {
+            try
+            {
+                String query = @"
+                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password 
+                            + "' WHERE User_id = '" + userInfo.User_id + "'";
+
+                var sqlcmd = new MySqlCommand(query);
+                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+
+                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+                {
+                    sqlcmd.Connection = connection;
+                    connection.Open();
+                    User user = new User();
+                    using var reader = sqlcmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        user.User_id = Convert.ToInt32(reader[0]);
+                        user.Name = reader[1].ToString();
+                        user.User_email = reader[2].ToString();
+                        user.User_password = reader[3].ToString();
+                    }
+                    connection.Close();
+                }
+
+                    return HttpStatusCode.Accepted;
+            }
+            catch (Exception ex)
+            {
+                return HttpStatusCode.BadRequest;
+        
         
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
