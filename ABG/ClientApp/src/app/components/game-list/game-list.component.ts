@@ -23,6 +23,7 @@ export class GameListComponent implements OnInit {
     }
 
   ngOnInit() {
+    
     // this.listGames();
     this.route.paramMap.subscribe(() => {
       this.listGames();
