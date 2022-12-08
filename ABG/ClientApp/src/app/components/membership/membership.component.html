@@ -1,44 +1,95 @@
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Choose A Membership Level</h1>
-  </div>
-
-  <div class="container">
-    <div class="card-deck mb-3 text-center">
-      <div class="card mb-4 box-shadow">
-        <!--TODO: 判断用户是否是会员-->
-        <!-- <div *ngIf="user == 0">
-          <div class="alert alert-warning col-md-12" role="alert">
-            Your shopping cart is empty!
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+    <div class="container d-flex justify-content-center">
+      <div class="col-xl-10 col-md-12">
+        <div class="card user-card-full">
+          <div class="row m-l-0 m-r-0">
+            <div class="col-sm-4 bg-c-lite-green user-profile">
+              <div class="card-block text-center text-white">
+                <div class="m-b-25">
+                  <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                    alt="User-Profile-Image">
+                </div>
+                <h6 class="f-w-600">Welcomem, {{name}}!</h6>
+                <!-- <p>Web Designer</p> -->
+                <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="card-block">
+                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Your membership</h6>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Start Date</p>
+                    <h6 class="text-muted f-w-400">{{membership.Purchase_date}}</h6>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">End Date</p>
+                    <h6 class="text-muted f-w-400">{{membership.Expire_date}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div> -->
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Free</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <br>
-            <br>
-            <br>
-            <br>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="register">Sign up for free</button>
-        </div>
-      </div>
-      <div class="card mb-4 box-shadow">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Pro</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <br>
-            <li>10% off on game purchases</li>
-            <br>
-            <br>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
         </div>
       </div>
     </div>
+
+    <div class="container" *ngIf="user_id != 0; else other_content">
+
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center"  *ngIf="premium_id == null">
+        <h1 class="display-4">Choose A Membership Level</h1>
+
+        <div class="card-deck mb-3 text-center">
+          <div class="card mb-4 box-shadow">
+            <!--TODO: 判断用户是否是会员-->
+            <!-- <div *ngIf="user == 0">
+              <div class="alert alert-warning col-md-12" role="alert">
+                Your shopping cart is empty!
+              </div>
+            </div> -->
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Free</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <br>
+                <br>
+                <br>
+                <br>
+              </ul>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="register">Sign up for
+                free</button>
+            </div>
+          </div>
+          <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Pro</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <br>
+                <li>10% off on game purchases</li>
+                <br>
+                <br>
+              </ul>
+              <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
   </div>
+
+</div>
+
+<ng-template #other_content>
+  <div class="alert alert-warning col-md-12" role="alert">
+    Please login to view!
+  </div>
+</ng-template>

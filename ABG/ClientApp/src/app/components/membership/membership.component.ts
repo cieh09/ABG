@@ -11,9 +11,13 @@ export class MembershipComponent implements OnInit {
 
   membership: Membership = new Membership();
   user_id: number = 0;
+  premium_id: number = 0;
+  name: string;
   
   constructor(private sharedService: SharedService) { 
-    this.user_id = JSON.parse(localStorage.getItem('id'));
+    this.user_id = JSON.parse(sessionStorage.getItem('id'));
+    this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
+    this.name = sessionStorage.getItem('name');
 
     this.sharedService.getVaildMembership(this.user_id).subscribe(data => {
       this.membership = data;
@@ -23,6 +27,9 @@ export class MembershipComponent implements OnInit {
         this.membership.Expire_date = data.Expire_date;
       }
     });
+
+    
+
   }
 
   ngOnInit() {

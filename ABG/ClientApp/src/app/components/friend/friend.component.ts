@@ -5,6 +5,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friend',
@@ -23,13 +24,13 @@ export class FriendComponent implements OnInit {
 
   friendsIds: any[];
 
-  constructor(private fb: FormBuilder, private service: SharedService, public dialog: MatDialog) { 
+  constructor(private fb: FormBuilder, private service: SharedService, public dialog: MatDialog, private router: Router) { 
   }
   ngOnInit() {
-    this.user.Name = localStorage.getItem('name');
-    this.user.User_email = localStorage.getItem('email');
-    this.user.User_id = Number(localStorage.getItem('id'));
-    this.user.User_password = localStorage.getItem('password');
+    this.user.Name = sessionStorage.getItem('name');
+    this.user.User_email = sessionStorage.getItem('email');
+    this.user.User_id = Number(sessionStorage.getItem('id'));
+    this.user.User_password = sessionStorage.getItem('password');
 
     this.createForm();
   }
@@ -58,19 +59,20 @@ export class FriendComponent implements OnInit {
   }
 
   logout(){
-    localStorage.clear();
+    sessionStorage.clear();
     this.userForm.reset();
+    this.router.navigateByUrl('login');
   }
 
   updateUserInfo() {
     this.service.updateUser(this.user).subscribe(data =>
       {
         console.log("Update User Status: " +data);
-        localStorage.clear();
-        localStorage.setItem('name', this.user.Name); 
-        localStorage.setItem('email', this.user.User_email); 
-        localStorage.setItem('id', this.user.User_id.toString()); 
-        localStorage.setItem('password', this.user.User_password); 
+        sessionStorage.clear();
+        sessionStorage.setItem('name', this.user.Name); 
+        sessionStorage.setItem('email', this.user.User_email); 
+        sessionStorage.setItem('id', this.user.User_id.toString()); 
+        sessionStorage.setItem('password', this.user.User_password); 
       }
       )
   }

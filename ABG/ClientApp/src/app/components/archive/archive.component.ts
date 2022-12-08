@@ -13,7 +13,7 @@ export class ArchiveComponent implements OnInit {
   games: Game[] = [];
   
   constructor(private sharedService: SharedService) { 
-    this.user_id = JSON.parse(localStorage.getItem('id'));
+    this.user_id = JSON.parse(sessionStorage.getItem('id'));
 
     console.log(this.user_id);
 

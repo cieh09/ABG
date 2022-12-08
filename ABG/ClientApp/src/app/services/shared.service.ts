@@ -1,6 +1,7 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Checkout } from '../common/checkout';
 import { Friend } from '../common/friend';
 import { Game } from '../common/game';
 import { User } from '../common/user';
@@ -13,6 +14,7 @@ export class SharedService {
   storage: Storage = sessionStorage;
   game: Game = new Game;
   private baseUrl = 'https://localhost:5001/api'; 
+  authService: any;
 
   constructor(private httpClient: HttpClient) { 
   }
@@ -57,5 +59,11 @@ export class SharedService {
 
   deleteUserFriend(friend: Friend): Observable<HttpResponse<any>>{
     return this.httpClient.put<HttpResponse<any>>(this.baseUrl + '/Friend/DeleteFriend', friend);
+  }
+
+  checkout(checkout: Checkout){
+    // var u_id = 'user_id=' + user_id;
+    // var g_id = 'game_id=' + game_id;
+    this.httpClient.post<any>(this.baseUrl + 'Game/Checkout', checkout);
   }
 }

@@ -182,14 +182,14 @@ namespace ABG.Controllers
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
         {
-            
+
             string query = @"
                  SELECT PremiumSale_id, User_id, Purchase_date, Expire_date FROM PermiumSale WHERE User_id = '" + id + "'";
-            
+
             var sqlcmd = new MySqlCommand(query);
-            
+
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            
+
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
                 sqlcmd.Connection = connection;

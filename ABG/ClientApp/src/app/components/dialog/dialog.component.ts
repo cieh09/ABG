@@ -43,7 +43,7 @@ export class DialogComponent{
     this.service.validateUserInfoById(id).subscribe(data => {
       this.user = data;
       this.friend.Friend_id = this.user.User_id;
-      this.friend.User_id = Number(localStorage.getItem('id'));
+      this.friend.User_id = Number(sessionStorage.getItem('id'));
 
     })
   }
