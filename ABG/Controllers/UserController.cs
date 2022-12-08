@@ -176,8 +176,9 @@ namespace ABG.Controllers
             catch (Exception ex)
             {
                 return HttpStatusCode.BadRequest;
-        
-        
+            }
+        }
+
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
         {
