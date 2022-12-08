@@ -3,15 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';;
-import { GameDetailsComponent } from './components/game-details/game-details.component'
-import { GameListComponent } from './components/game-list/game-list.component'
-import { SharedService } from './services/shared.service';;
 import { Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';;
 import { RegisterComponent } from './components/register/register.component';
@@ -19,10 +15,20 @@ import { MembershipComponent } from './components/membership/membership.componen
 import { ArchiveComponent } from './components/archive/archive.component';
 import { FriendComponent } from './components/friend/friend.component';
 import { LoginComponent } from './components/login/login.component';;
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component'
-;
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { ShoppingCartStatusComponent } from './components/shopping-cart-status/shopping-cart-status.component'
 import { CartService } from './services/cart.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import { GameListComponent } from './components/game-list/game-list.component';
+import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { SharedService } from './services/shared.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +50,14 @@ import { CartService } from './services/cart.service';
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatTabsModule,
+      MatToolbarModule,
+      MatButtonModule,
+      MatIconModule,
+      BrowserAnimationsModule,
+      MatInputModule,
+      MatSelectModule
     ],
     providers: [SharedService, CartService],
     bootstrap: [AppComponent]
