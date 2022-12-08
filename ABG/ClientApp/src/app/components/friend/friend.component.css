@@ -1,11 +1,29 @@
-body{
-    margin-top:20px;
-    background:#FAFAFA
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
 }
-img.profile-photo-md {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
+
+.form2 {
+  float: right;
+  padding: 30px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+button{
+  margin-right: 10px;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.mat-tab{
+  margin-right: 10px;
 }
 
 .create-post{

@@ -1,3 +1,42 @@
+<mat-tab-group>
+  <mat-tab label="User"> 
+    <form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+      <td>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>User ID</mat-label>
+        <input matInput disabled value={{user.User_id}}>
+      </mat-form-field>
+    </td>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input formControlName="name" matInput required [(ngModel)]="user.Name">
+      </mat-form-field>
+    </td>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput required [(ngModel)]="user.User_email" value={{user.User_email}}>
+      </mat-form-field>
+    </td>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" matInput required>
+      </mat-form-field>
+    </td>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+    </form>
+    <form class="form2"  (submit)="logout()">
+      <button mat-raised-button type="submit">Logout</button>
+   </form>
+
+  </mat-tab>
+  <mat-tab label="Friend"> 
+
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="create-post">
@@ -28,3 +67,5 @@
         </div>
     </div>
 </div>
+  </mat-tab>
+</mat-tab-group>
