@@ -147,7 +147,7 @@ namespace ABG.Controllers
             try
             {
                 String query = @"
-                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password 
+                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password
                             + "' WHERE User_id = '" + userInfo.User_id + "'";
 
                 var sqlcmd = new MySqlCommand(query);
@@ -170,11 +170,37 @@ namespace ABG.Controllers
                     connection.Close();
                 }
 
-                    return HttpStatusCode.Accepted;
+                return HttpStatusCode.Accepted;
             }
             catch (Exception ex)
             {
                 return HttpStatusCode.BadRequest;
+            }
+        }
+
+        [HttpGet("VerifyUserRegister")]
+        public int VerifyUserRegister(string name)
+        {
+            string query = @"
+                select count(*) from Gamedb.User where Name = '" + name + "'";
+            var sqlcmd = new MySqlCommand(query);
+
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                int i = 0;
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    i = Convert.ToInt32(reader[0]);
+                }
+                connection.Close();
+                return i;
             }
         }
 
