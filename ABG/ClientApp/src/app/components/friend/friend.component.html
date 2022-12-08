@@ -1,30 +1,79 @@
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-    <div class="create-post">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                   <!-- 写点东西在这应该会好点？！-->
-            	</div>
-        	</div>
-    	</div>
-    </div>
-    
-    <div class="friend-list">
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-              <div class="friend-card">
-                  <img src="https://via.placeholder.com/400x100/6495ED" alt="profile-cover" class="img-responsive cover">
-                  <div class="card-info">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
-                  <div class="friend-info">
-                    <a href="#" class="pull-right text-green">My Friend</a>
-                  	<h5><a href="timeline.html" class="profile-link">Sophia Lee</a></h5>
-                  	<p>Student at Harvard</p>
-                  </div>
+<mat-card>
+  <mat-tab-group *ngIf="user.User_id != 0; else other_content">
+    <mat-tab label="User"> 
+      <form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+        <td>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>User ID</mat-label>
+          <input matInput disabled value={{user.User_id}}>
+        </mat-form-field>
+      </td>
+  
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input formControlName="name" matInput required [(ngModel)]="user.Name">
+        </mat-form-field>
+      </td>
+  
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput required [(ngModel)]="user.User_email" value={{user.User_email}}>
+        </mat-form-field>
+      </td>
+  
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" matInput required>
+        </mat-form-field>
+      </td>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+      </form>
+      <form class="form2"  (submit)="logout()">
+        <button mat-raised-button type="submit">Logout</button>
+     </form>
+    </mat-tab>
+    <mat-tab label="Friend"> 
+      <ng-template mat-tab-label>
+        <span (click)="getFriendsId(user.User_id)">
+          Friend
+        </span>
+      </ng-template>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="container">
+      <!-- <div class="create-post">
+          <div class="row">
+              <div class="col-md-8">
+                  <div class="row">
                 </div>
-              </div>
             </div>
         </div>
-    </div>
-</div>
+      </div> -->
+      
+      <mat-card class="example-card" *ngFor="let friendsId of friendsIds">
+          <mat-card-content>
+            <div><mat-icon (click)="openDialog(friendsId)" class="delete-card">delete_forever</mat-icon></div>
+            <div class="card-info">
+            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+            <div class="friend-info">
+              <app-friend-details [friendId]="friendsId"></app-friend-details>
+  
+              </div>
+            </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+  <form class="form2"  (submit)="logout()">
+  </form>
+  <form class="form2"  (submit)="logout()">
+    <button mat-raised-button type="submit">Logout</button>
+  </form>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
+
+
+<ng-template #other_content>Please Login to view</ng-template>
