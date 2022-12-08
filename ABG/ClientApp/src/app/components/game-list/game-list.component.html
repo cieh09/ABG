@@ -31,9 +31,8 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <!-- <span class="text-muted text-decoration-line-through">{{p.Price | currency:'USD'}}</span>
-                                    $18.00 -->
-                                    {{p.Price | currency:'USD'}}
+                                    <span class="text-muted text-decoration-line-through">{{p.Price | currency:'USD'}}</span>
+                                    <span *ngIf="premium_id != 0">{{p.Price * 0.9 | currency:'USD'}}</span>
                                 </div>
                             </div>
                             <!-- Product actions-->

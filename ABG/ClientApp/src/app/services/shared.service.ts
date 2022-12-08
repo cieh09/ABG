@@ -32,7 +32,12 @@ export class SharedService {
     return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
   }
 
-  persistUserInfo(){
-    // this.storage.setItem("User", JSON.stringify(this.loginForm.value));
+  getGamesByUserId(user_id: number): Observable<any[]>{
+    console.log("running getGamesByUserId" + user_id);
+    return this.httpClient.get<any>(this.baseUrl + '/Game/GetAllGamesByUserId?user_id=' + user_id);
+  }
+
+  getVaildMembership(id: number): Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + "/User/GetUserPremiumId?id=" + id);
   }
 }

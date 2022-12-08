@@ -129,8 +129,12 @@ namespace ABG.Controllers
         [HttpGet("GetAllGamesByUserId")]
         public JsonResult GetAllGamesByUserId(int user_id)
         {
-            string query = @"
-                select * from User_Buy_Game where User_id = '" + user_id + "'";
+            // string query = @"
+            //     select * from User_Buy_Game where User_id = '" + user_id + "'";
+
+            string query = @"SELECT Game.Game_id, Title, Release_date, Price, ImageUrl FROM Game JOIN User_Buy_Game
+                        ON User_Buy_Game.Game_id = Game.Game_id
+                        WHERE User_Buy_Game.User_id = '" + user_id + "'";
             
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");

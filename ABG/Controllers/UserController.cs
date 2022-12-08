@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -136,6 +135,36 @@ namespace ABG.Controllers
                 }
                 connection.Close();
                 return new JsonResult("Successfully write new user info to the database!");
+            }
+        }
+        
+        [HttpGet("GetUserPremiumId")]
+        public JsonResult GetUserPremiumId(int id)
+        {
+            
+            string query = @"
+                 SELECT PremiumSale_id, User_id, Purchase_date, Expire_date FROM PermiumSale WHERE User_id = '" + id + "'";
+            
+            var sqlcmd = new MySqlCommand(query);
+            
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                PremiumSale p_user = new PremiumSale();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    p_user.PremiumSale_id = Convert.ToInt32(reader[0]);
+                    p_user.User_id = Convert.ToInt32(reader[1]);
+                    p_user.Purchase_date = DateTime.Parse(reader[2].ToString());
+                    p_user.Expire_date = DateTime.Parse(reader[3].ToString());
+                }
+                connection.Close();
+                return new JsonResult(p_user);
             }
         }
     }
