@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Friend } from 'src/app/common/friend';
 import { User } from 'src/app/common/user';
@@ -17,6 +18,7 @@ export class DialogComponent{
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     private service: SharedService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: {message: string}
   ) {
     this.message = data ? data.message : '';
@@ -30,6 +32,9 @@ export class DialogComponent{
   deleteFriend(friendId){
     this.getFriendsInfo(friendId);
     this.deleteAction(this.friend);
+    this._snackBar.open('Friend deleted.', '',{
+      duration: 2000
+    });
     this.dialogRef.close();
     window.location.reload();
   }

@@ -21,11 +21,11 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">Start Date</p>
-                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{membership.Purchase_date}}</h6>
+                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{formatDate(membership.Purchase_date)}}</h6>
                   </div>
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">End Date</p>
-                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{membership.Expire_date}}</h6>
+                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{formatDate(membership.Expire_date)}}</h6>
                   </div>
                 </div>
               </div>
