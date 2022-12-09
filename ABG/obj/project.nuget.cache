@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1UcWyhXUjykKeecMPNMiw5F1CjCsficzs1p+oQo16etnikf2iOOBhpHkmV0k60nyMFVFMVexhmi0EAroaEWkTQ==",
+  "dgSpecHash": "+sG7t6N7JUTJ+NrIXOX5vQj+WQkntW1gh0Z/J2J7cR3MSgdZ4ys95+41K+Toom6V5a1UfmweKbPWhdtCNJoobA==",
   "success": true,
   "projectFilePath": "/Users/qqq/RiderProjects/ABG/ABG/ABG.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,7 @@
     "/Users/qqq/.nuget/packages/microsoft.data.sqlclient.sni.runtime/2.0.1/microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
     "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore/5.0.0/microsoft.entityframeworkcore.5.0.0.nupkg.sha512",
     "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.0/microsoft.entityframeworkcore.abstractions.5.0.0.nupkg.sha512",
-    "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore.analyzers/5.0.0/microsoft.entityframeworkcore.analyzers.5.0.0.nupkg.sha512",
+    "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.0/microsoft.entityframeworkcore.analyzers.7.0.0.nupkg.sha512",
     "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore.relational/5.0.0/microsoft.entityframeworkcore.relational.5.0.0.nupkg.sha512",
     "/Users/qqq/.nuget/packages/microsoft.entityframeworkcore.sqlserver/5.0.0/microsoft.entityframeworkcore.sqlserver.5.0.0.nupkg.sha512",
     "/Users/qqq/.nuget/packages/microsoft.extensions.caching.abstractions/5.0.0/microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",

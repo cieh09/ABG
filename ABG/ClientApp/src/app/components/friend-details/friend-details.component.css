@@ -6,17 +6,12 @@
 }
 
 .example-card {
-  width: 120px;
-  height: 220px;
+  max-width: 200px;
   margin-bottom: 50px;
   float: left;
   margin-right: 20px;
   margin-top: 30px;
 
-}
-
-.delete-card{
-  float: right;
 }
 
 .form2 {

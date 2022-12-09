@@ -74,10 +74,8 @@ namespace ABG.Controllers
         [HttpGet("GetUserInfoById")]
         public JsonResult GetUserInfoById(int id)
         {
-
             string query = @"
                 select * from User where User_id = '" + id + "'";
-
             var sqlcmd = new MySqlCommand(query);
 
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -87,17 +85,18 @@ namespace ABG.Controllers
                 sqlcmd.Connection = connection;
 
                 connection.Open();
-                User user = new User();
+                User obj = new User();
                 using var reader = sqlcmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    user.User_id = Convert.ToInt32(reader[0]);
-                    user.Name = reader[1].ToString();
-                    user.User_email = reader[2].ToString();
-                    user.User_password = reader[3].ToString();
+
+                    obj.User_id = Convert.ToInt32(reader[0]);
+                    obj.Name = reader[1].ToString();
+                    obj.User_email = reader[2].ToString();
+                    obj.User_password = reader[3].ToString();
                 }
                 connection.Close();
-                return new JsonResult(user);
+                return new JsonResult(obj);
             }
         }
 
@@ -148,7 +147,7 @@ namespace ABG.Controllers
             try
             {
                 String query = @"
-                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password 
+                    update User set Name = '" + userInfo.Name + "', User_email = '" + userInfo.User_email + "', User_password = '" + userInfo.User_password
                             + "' WHERE User_id = '" + userInfo.User_id + "'";
 
                 var sqlcmd = new MySqlCommand(query);
@@ -171,24 +170,52 @@ namespace ABG.Controllers
                     connection.Close();
                 }
 
-                    return HttpStatusCode.Accepted;
+                return HttpStatusCode.Accepted;
             }
             catch (Exception ex)
             {
                 return HttpStatusCode.BadRequest;
-        
-        
+            }
+        }
+
+        [HttpGet("VerifyUserRegister")]
+        public int VerifyUserRegister(string name)
+        {
+            string query = @"
+                select count(*) from Gamedb.User where Name = '" + name + "'";
+            var sqlcmd = new MySqlCommand(query);
+
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                int i = 0;
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    i = Convert.ToInt32(reader[0]);
+                }
+                connection.Close();
+                return i;
+            }
+        }
+
+
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
         {
-            
+
             string query = @"
                  SELECT PremiumSale_id, User_id, Purchase_date, Expire_date FROM PermiumSale WHERE User_id = '" + id + "'";
-            
+
             var sqlcmd = new MySqlCommand(query);
-            
+
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            
+
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
                 sqlcmd.Connection = connection;

@@ -155,6 +155,35 @@ namespace ABG.Controllers
 
             return new JsonResult(table);
         }
+        
+        
+        [HttpPost("Checkout")]
+        public JsonResult Checkout(UserBuyGame userBuy)
+        {
+            
+            string query = @"
+                 INSERT INTO User_Buy_Game(Game_id, User_id) VALUES('" + userBuy.Game_id + "', '" + userBuy.User_id + "') ";
+            
+            var sqlcmd = new MySqlCommand(query);
+            
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                UserBuyGame u_user = new UserBuyGame();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    u_user.Game_id = Convert.ToInt32(reader[0]);
+                    u_user.User_id = Convert.ToInt32(reader[1]);
+                }
+                connection.Close();
+                return new JsonResult(u_user);
+            }
+        }
     }
 }
 

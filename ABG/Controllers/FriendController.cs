@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
+using System.Net;
 
 namespace ABG.Controllers
 {
@@ -49,5 +50,40 @@ namespace ABG.Controllers
             
             return new JsonResult(table);
         }
+
+        [HttpPut("DeleteFriend")]
+        public HttpStatusCode DeleteFriend(Friend friendship)
+        {
+            try
+            {
+                string query = @"
+                 DELETE FROM Friends WHERE Friend_id = '" + friendship.Friend_id + "' and User_id = '" + friendship.User_id +"'";
+
+                var sqlcmd = new MySqlCommand(query);
+                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+
+                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+                {
+                    sqlcmd.Connection = connection;
+                    connection.Open();
+                    Friend friend = new Friend();
+                    using var reader = sqlcmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        friend.User_id = Convert.ToInt32(reader[0]);
+                        friend.Friend_id = Convert.ToInt32(reader[1]);
+                    }
+                    connection.Close();
+                }
+
+                return HttpStatusCode.Accepted;
+            }
+            catch (Exception ex)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
     }
 }

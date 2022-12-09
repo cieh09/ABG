@@ -1,5 +1,5 @@
 <div class="main-content">
-  <div class="section-content section-content-p30">
+  <div class="section-content section-content-p30" *ngIf="user_id != null; else other_content">
       <div class="container-fluid">
           <div class="container px-5 px-lg-5 mt-5">
               <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
@@ -34,3 +34,9 @@
       </div>
   </div>
 </div>
+
+<ng-template #other_content>
+  <div class="alert alert-warning col-md-12" role="alert">
+    Please Login to view.
+  </div>
+</ng-template>

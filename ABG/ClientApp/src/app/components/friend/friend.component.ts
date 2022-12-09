@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/common/user';
 import { SharedService } from 'src/app/services/shared.service';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friend',
   templateUrl: './friend.component.html',
   styleUrls: ['./friend.component.css']
 })
+
 export class FriendComponent implements OnInit {
 
   user: User = new User();
@@ -17,15 +22,25 @@ export class FriendComponent implements OnInit {
   email: any = '';
   password: any = '';
 
-  constructor(private fb: FormBuilder, private service: SharedService) { }
-  ngOnInit() {
+  friendsIds: any[];
 
-    this.user.Name = localStorage.getItem('name');
-    this.user.User_email = localStorage.getItem('email');
-    this.user.User_id = Number(localStorage.getItem('id'));
-    this.user.User_password = localStorage.getItem('password');
+  constructor(private fb: FormBuilder, private service: SharedService, public dialog: MatDialog, private router: Router) { 
+  }
+  ngOnInit() {
+    this.user.Name = sessionStorage.getItem('name');
+    this.user.User_email = sessionStorage.getItem('email');
+    this.user.User_id = Number(sessionStorage.getItem('id'));
+    this.user.User_password = sessionStorage.getItem('password');
 
     this.createForm();
+  }
+
+  openDialog(friendsId) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        message: friendsId,
+      },
+    });
   }
 
   createForm() {
@@ -37,28 +52,37 @@ export class FriendComponent implements OnInit {
   }
 
   onSubmit(post: FormGroup){
-    this.username = post.value.name;
+    //this.username = post.value.name;
     this.email = post.value.email;
+    this.user.User_email = post.value.email;
     this.password = post.value.password;
+    this.user.User_password = post.value.password;
     this.updateUserInfo();
   }
 
   logout(){
-    localStorage.clear();
+    sessionStorage.clear();
     this.userForm.reset();
+    this.router.navigateByUrl('login');
   }
 
   updateUserInfo() {
     this.service.updateUser(this.user).subscribe(data =>
       {
         console.log("Update User Status: " +data);
-        localStorage.clear();
-        localStorage.setItem('name', this.user.Name); 
-        localStorage.setItem('email', this.user.User_email); 
-        localStorage.setItem('id', this.user.User_id.toString()); 
-        localStorage.setItem('password', this.user.User_password); 
+        sessionStorage.clear();
+        sessionStorage.setItem('name', this.user.Name); 
+        sessionStorage.setItem('email', this.user.User_email); 
+        sessionStorage.setItem('id', this.user.User_id.toString()); 
+        sessionStorage.setItem('password', this.user.User_password); 
       }
       )
   }
 
+  getFriendsId(){
+    this.service.getFriendList(this.user.User_id).subscribe(data =>
+      {
+        this.friendsIds = [...data];
+      })
+  }
 }
