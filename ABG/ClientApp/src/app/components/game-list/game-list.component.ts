@@ -23,7 +23,6 @@ export class GameListComponent implements OnInit {
     }
 
   ngOnInit() {
-    
     // this.listGames();
     this.route.paramMap.subscribe(() => {
       this.listGames();
@@ -32,11 +31,8 @@ export class GameListComponent implements OnInit {
     this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
     console.log(this.premium_id);
 
-    this.userOwnedGames = JSON.parse(sessionStorage.getItem('userOwnedGamesList'));
-    console.log(this.userOwnedGames);
+    // this.userOwnedGames = JSON.parse(sessionStorage.getItem('userOwnedGamesList'));
 
-    this.checkOwnedGames();
-    
   }
 
   navigateToGame(g: Game){
@@ -47,6 +43,21 @@ export class GameListComponent implements OnInit {
     this.sharedService.getGameList().subscribe(
       data => {
         this.games = data;
+        this.populateUserOwnedGames();
+      }
+    );
+    
+  }
+
+  populateUserOwnedGames() {
+    this.sharedService.getGamesByUserId(Number(sessionStorage.getItem('id'))).subscribe(
+      data => {
+        this.userOwnedGames = [...data];
+        this.userOwnedGames.forEach((usergame) => {
+          this.games = this.games.filter((allgames) => {
+            return JSON.stringify(allgames) !== JSON.stringify(usergame);
+          })
+         })
       }
     );
   }
@@ -64,9 +75,7 @@ export class GameListComponent implements OnInit {
   }
 
   checkOwnedGames(){
-    const result = this.userOwnedGames.some(val => {
-      console.log("checkOwnedGames" + val);
-    })
+   
   }
 
 }
