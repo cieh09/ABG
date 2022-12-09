@@ -1,10 +1,10 @@
 
 <mat-dialog-content> 
     <mat-icon aria-hidden="false" (click)="closeAlert()"> close </mat-icon>
-    
-    {{expireDate}}
+<p>Are you sure you want to delete {{user.Name}} as friend?
+</p>
 
     <button mat-button (click)="closeAlert()">No Thanks</button>
-    <button mat-button >Ok</button>
+    <button mat-button (click)="deleteFriend(user.User_id)">Ok</button>
 
 </mat-dialog-content>

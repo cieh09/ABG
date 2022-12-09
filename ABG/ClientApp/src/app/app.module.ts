@@ -40,7 +40,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MembershipDialogComponent } from './components/dialog copy/membership-dialog.component';
+import { MembershipDialog } from './components/dialog copy/membership-dialog';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { MembershipDialogComponent } from './components/dialog copy/membership-d
     ShoppingCartStatusComponent,
     FriendDetailsComponent,
     DialogComponent, 
-    MembershipDialogComponent
+    MembershipDialog
   ],
   imports: [
       BrowserModule,
@@ -117,7 +117,7 @@ import { MembershipDialogComponent } from './components/dialog copy/membership-d
     ],
     providers: [SharedService, CartService],
     bootstrap: [AppComponent], 
-    entryComponents: [DialogComponent, MembershipDialogComponent]
+    entryComponents: [DialogComponent]
 })
 export class AppModule { }
 
