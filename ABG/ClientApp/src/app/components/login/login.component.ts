@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       console.log(this.loginForm.value);
 
-      this.userLogin.name = this.loginForm.value.name;
-      this.userLogin.password = this.loginForm.value.password;
+      this.userLogin.name = this.loginForm.value.name.toString();
+      this.userLogin.password = this.loginForm.value.password.toString();
       this.shardService.validateUserInfo(this.userLogin).subscribe(data => {
         this.user.Name = data.Name;
         this.user.User_email = data.User_email;

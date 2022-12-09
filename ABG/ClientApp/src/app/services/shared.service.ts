@@ -37,6 +37,9 @@ export class SharedService {
   }
 
   writeNewUserInfo(userInfo: User): Observable<any>{
+    // insert new user info
+    // and 
+    // return inserted user_id
     return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
   }
 
