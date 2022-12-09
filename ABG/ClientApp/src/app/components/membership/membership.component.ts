@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Membership } from 'src/app/common/membership';
 import { SharedService } from 'src/app/services/shared.service';
-import { MembershipDialog } from '../dialog copy/membership-dialog';
+import { MembershipDialogComponent } from '../dialog copy/membership-dialog.component';
 
 @Component({
   selector: 'app-membership',
@@ -16,14 +16,17 @@ export class MembershipComponent implements OnInit {
   user_id: number = 0;
   premium_id: number = 0;
   name: string;
-  
+  expireDate: string;
+
   constructor(private sharedService: SharedService, public dialog: MatDialog) { 
     this.user_id = JSON.parse(sessionStorage.getItem('id'));
     this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
     this.name = sessionStorage.getItem('name');
+    this.expireDate = sessionStorage.getItem('expireDate')
 
     this.sharedService.getVaildMembership(this.user_id).subscribe(data => {
       console.log("---------------------",typeof data.Purchase_date,typeof data.Expire_date);
+      sessionStorage.setItem('expireDate',data.Expire_date)
       this.membership = data;
       /*if(this.membership.PremiumSale_id != 0){
         this.membership.User_id = data.User_id;
@@ -36,9 +39,14 @@ export class MembershipComponent implements OnInit {
 
   }
 
-  openDialog(num): void {
-    this.dialog.open(MembershipDialog, {
-      width: '250px'
+
+  openDialog(expireDate, days): void {
+    this.dialog.open(MembershipDialogComponent, {
+      width: '250px', 
+      data: {
+        expireDate: expireDate,
+        days: days
+      },
     });
   }
 
