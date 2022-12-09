@@ -52,28 +52,33 @@ export class RegisterComponent implements OnInit {
   validInfo(){
     this.shardService.validateUserInfo(this.registerForm.value).subscribe(data => {
       this.user = data;
+     
+      // TODO: 跳转到首页，或是user页面
+      // this.router.navigate(['/user-pages']);
+      // null 说明不存在
       if(this.user.Name == null){
-        this.shardService.writeNewUserInfo(this.registerForm.value).subscribe(data => {
+        this.user.Name = this.registerForm.value.name;
+        this.user.User_email = this.registerForm.value.email;
+        this.user.User_password = this.registerForm.value.password;
+        this.shardService.writeNewUserInfo(this.user).subscribe(data => {
           this.user = data;
         });
-        
+  
         sessionStorage.setItem('name', this.user.Name);
         sessionStorage.setItem('email', this.user.User_email);
         sessionStorage.setItem('id', this.user.User_id.toString());
         sessionStorage.setItem('password', this.user.User_password);
-
+  
         this.shardService.getVaildMembership(this.user.User_id).subscribe(data => {
           sessionStorage.setItem('PremiumSale_id', data.PremiumSale_id);
         });
-
+  
         this.shardService.getGamesByUserId(this.user.User_id).subscribe(data => {
           sessionStorage.setItem('userOwnedGamesList', JSON.stringify(data));
         });
-
+  
         alert("Successfully create an account! You can now login with registered info.");
         this.router.navigateByUrl('');
-        // TODO: 跳转到首页，或是user页面
-        // this.router.navigate(['/user-pages']);
       }
       else{
         alert("No such user!");
@@ -85,7 +90,7 @@ export class RegisterComponent implements OnInit {
     this.shardService.verifyUserRegister(name).subscribe(data => {
       if(data > 0){
         this._snackBar.open('User already registered.', '',{
-          duration: 2000
+          duration: 5000
         });
         window.location.reload();
       }else{
