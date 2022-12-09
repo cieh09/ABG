@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Membership } from 'src/app/common/membership';
 import { SharedService } from 'src/app/services/shared.service';
+import { MembershipDialog } from '../dialog copy/membership-dialog';
 
 @Component({
   selector: 'app-membership',
@@ -9,12 +11,13 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class MembershipComponent implements OnInit {
 
+  membershipLengths: number[];
   membership: Membership = new Membership();
   user_id: number = 0;
   premium_id: number = 0;
   name: string;
   
-  constructor(private sharedService: SharedService) { 
+  constructor(private sharedService: SharedService, public dialog: MatDialog) { 
     this.user_id = JSON.parse(sessionStorage.getItem('id'));
     this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
     this.name = sessionStorage.getItem('name');
@@ -29,8 +32,14 @@ export class MembershipComponent implements OnInit {
       }*/
     });
 
-    
+    this.membershipLengths = [7,14,30,100,300]
 
+  }
+
+  openDialog(num): void {
+    this.dialog.open(MembershipDialog, {
+      width: '250px'
+    });
   }
 
   formatDate(strDate: string) {

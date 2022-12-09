@@ -1,8 +1,30 @@
 body {
-    background-color: #f9f9fa
+    background-color: #f9f9fa;
+}
+.row{
+    padding: 3rem !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.gradient.royal-garden {
+    background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 }
 
+section.gradient {
+    color: #f9f9fa;
+    padding: 40px 16px;
+    text-align: center;
+    vertical-align: middle;
+    width: 250px;
+    height: 70%;
+    margin: 4px;
+    border-radius: 6px;
+    background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+
+  }
+
 .padding {
+    align-items: center !important;
     padding: 3rem !important
 }
 
