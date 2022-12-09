@@ -31,9 +31,9 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <span *ngIf="premium_id == null">{{p.Price | currency:'USD'}}</span>
+                                    <span *ngIf="premium_id == null || premium_id == 0">{{p.Price | currency:'USD'}}</span>
                                     <span class="text-muted text-decoration-line-through" *ngIf="premium_id != 0 && premium_id != null">{{p.Price | currency:'USD'}}</span>
-                                    <span *ngIf="premium_id != 0 && premium_id != null">  {{p.Price * 0.9 | currency:'USD'}}</span>
+                                    <span *ngIf="premium_id != 0 && premium_id != null"> {{p.Price * 0.9 | currency:'USD'}}</span>
                                 </div>
                             </div>
                             <!-- Product actions-->

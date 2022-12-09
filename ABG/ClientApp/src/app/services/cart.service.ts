@@ -6,7 +6,7 @@ import { CartItem } from '../common/cart-item';
 })
 export class CartService {
 
-  session: Storage = localStorage;
+  session: Storage = sessionStorage;
   cartItems: CartItem[] = [];
   totalPrice: Subject<number> = new BehaviorSubject<number>(0); 
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0); 
@@ -40,9 +40,8 @@ export class CartService {
       hasDuplicatedItem = (currentCartItem != undefined);
     }
 
-    // 存在商品，将这个商品的数量++
     if(hasDuplicatedItem){
-      currentCartItem.quantity++;
+      // DO NOTHING
     }
     // 否则就将商品加入array
     else{

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
+using Newtonsoft.Json.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ABG.Controllers
@@ -160,9 +161,35 @@ namespace ABG.Controllers
         [HttpPost("Checkout")]
         public JsonResult Checkout(UserBuyGame userBuy)
         {
+            // JObject jObject = JObject.Parse(userBuy.ToString());
+            //
+            // int u_id = (int)jObject.SelectToken("User_id");
+            // int g_id = (int)jObject.SelectToken("Game_id");
+            //
+            // string query = @"
+            //      INSERT INTO User_Buy_Game(Game_id, User_id) VALUES('" + g_id + "', '" + u_id + "') ";
             
             string query = @"
                  INSERT INTO User_Buy_Game(Game_id, User_id) VALUES('" + userBuy.Game_id + "', '" + userBuy.User_id + "') ";
+
+            // DataTable table = new DataTable();
+            // string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            // MySqlDataReader myReader;
+            //
+            // using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            // {
+            //     connection.Open();
+            //     using (MySqlCommand mySqlCommand = new MySqlCommand(query, connection))
+            //     {
+            //         myReader = mySqlCommand.ExecuteReader();
+            //         table.Load(myReader);
+            //         
+            //         myReader.Close();
+            //         connection.Close();
+            //     }
+            // }
+            //
+            // return new JsonResult("Successfully inserted data to the database!!");
             
             var sqlcmd = new MySqlCommand(query);
             
@@ -171,7 +198,7 @@ namespace ABG.Controllers
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
                 sqlcmd.Connection = connection;
-
+            
                 connection.Open();
                 UserBuyGame u_user = new UserBuyGame();
                 using var reader = sqlcmd.ExecuteReader();
