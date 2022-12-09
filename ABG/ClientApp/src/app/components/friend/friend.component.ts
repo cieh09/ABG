@@ -52,9 +52,11 @@ export class FriendComponent implements OnInit {
   }
 
   onSubmit(post: FormGroup){
-    this.username = post.value.name;
+    //this.username = post.value.name;
     this.email = post.value.email;
+    this.user.User_email = post.value.email;
     this.password = post.value.password;
+    this.user.User_password = post.value.password;
     this.updateUserInfo();
   }
 
