@@ -56,6 +56,20 @@ export class RegisterComponent implements OnInit {
         this.shardService.writeNewUserInfo(this.registerForm.value).subscribe(data => {
           this.user = data;
         });
+        
+        sessionStorage.setItem('name', this.user.Name);
+        sessionStorage.setItem('email', this.user.User_email);
+        sessionStorage.setItem('id', this.user.User_id.toString());
+        sessionStorage.setItem('password', this.user.User_password);
+
+        this.shardService.getVaildMembership(this.user.User_id).subscribe(data => {
+          sessionStorage.setItem('PremiumSale_id', data.PremiumSale_id);
+        });
+
+        this.shardService.getGamesByUserId(this.user.User_id).subscribe(data => {
+          sessionStorage.setItem('userOwnedGamesList', JSON.stringify(data));
+        });
+
         alert("Successfully create an account! You can now login with registered info.");
         this.router.navigateByUrl('');
         // TODO: 跳转到首页，或是user页面

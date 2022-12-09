@@ -48,25 +48,24 @@ export class LoginComponent implements OnInit {
 
         if(data.User_id > 0){
           alert("Login successful.");
+          sessionStorage.setItem('name', this.user.Name);
+          sessionStorage.setItem('email', this.user.User_email);
+          sessionStorage.setItem('id', this.user.User_id.toString());
+          sessionStorage.setItem('password', this.user.User_password);
+
+          this.shardService.getVaildMembership(this.user.User_id).subscribe(data => {
+            sessionStorage.setItem('PremiumSale_id', data.PremiumSale_id);
+          });
+
+          this.shardService.getGamesByUserId(this.user.User_id).subscribe(data => {
+            sessionStorage.setItem('userOwnedGamesList', JSON.stringify(data));
+          });
+
+          this.router.navigateByUrl('friend');
         }else{
           alert("Login failed.");
         }
-        sessionStorage.setItem('name', this.user.Name);
-        sessionStorage.setItem('email', this.user.User_email);
-        sessionStorage.setItem('id', this.user.User_id.toString());
-        sessionStorage.setItem('password', this.user.User_password);
-
-        this.shardService.getVaildMembership(this.user.User_id).subscribe(data => {
-          sessionStorage.setItem('PremiumSale_id', data.PremiumSale_id);
-        });
-
-        this.shardService.getGamesByUserId(this.user.User_id).subscribe(data => {
-          sessionStorage.setItem('userOwnedGamesList', JSON.stringify(data));
-        });
-
-        this.router.navigateByUrl('friend');
       }); 
-
     }
     else{
       alert("Info is not valid!!");

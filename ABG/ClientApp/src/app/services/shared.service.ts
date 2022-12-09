@@ -61,10 +61,12 @@ export class SharedService {
     return this.httpClient.put<HttpResponse<any>>(this.baseUrl + '/Friend/DeleteFriend', friend);
   }
 
-  checkout(checkout: Checkout){
+  checkout(checkout: Checkout): Observable<any> {
     // var u_id = 'user_id=' + user_id;
     // var g_id = 'game_id=' + game_id;
-    this.httpClient.post<any>(this.baseUrl + 'Game/Checkout', checkout);
+    console.log('checkout user_id ' + checkout.User_id);
+    console.log('checkout game_id ' + checkout.Game_id);
+    return this.httpClient.post<any>(this.baseUrl + '/Game/Checkout', checkout);
   }
 
   verifyUserRegister(name: string): Observable<number>{

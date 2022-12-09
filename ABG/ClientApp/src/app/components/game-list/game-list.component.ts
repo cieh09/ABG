@@ -29,7 +29,7 @@ export class GameListComponent implements OnInit {
     });
 
     this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
-    console.log(this.premium_id);
+    console.log("this.premium_id is: " + this.premium_id);
 
     // this.userOwnedGames = JSON.parse(sessionStorage.getItem('userOwnedGamesList'));
 
@@ -64,10 +64,10 @@ export class GameListComponent implements OnInit {
 
   addToCart(game: Game){
 
-    if(this.premium_id != 0){
+    if(this.premium_id != 0 && this.premium_id != null){
       game.Price *= 0.9;
     }
-    // TODO: 会员情况下需要修改加入购物车的值 原值 * 0.9
+
     const cartGame = new CartItem(game);
     console.log(cartGame);
     console.log(game.Game_id, game.Price);
