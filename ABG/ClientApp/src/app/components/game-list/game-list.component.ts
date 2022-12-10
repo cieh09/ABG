@@ -60,16 +60,29 @@ export class GameListComponent implements OnInit {
           this.games = this.games.filter((allgames) => {
             return JSON.stringify(allgames) !== JSON.stringify(usergame);
           })
-         })
+         });
+         this.populateSpecialPrice();
       }
     );
   }
 
+  populateSpecialPrice() {
+    this.games.forEach(game => {
+      if(this.premium_id != 0 && this.premium_id != null) {
+        game.SpecialPrice = (game.Price * 0.9);
+      }
+      else {
+        game.SpecialPrice = game.Price;
+      }
+      
+    });
+  }
+
   addToCart(game: Game){
 
-    if(this.premium_id != 0 && this.premium_id != null){
+    /*if(this.premium_id != 0 && this.premium_id != null){
       game.Price *= 0.9;
-    }
+    }*/
 
     const cartGame = new CartItem(game);
     console.log(cartGame);

@@ -33,14 +33,16 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <span *ngIf="premium_id == null || premium_id == 0">{{p.Price | currency:'USD'}}</span>
+                                    <!--<span *ngIf="premium_id == null || premium_id == 0">{{p.Price | currency:'USD'}}</span>
                                     <span class="text-muted text-decoration-line-through" *ngIf="premium_id != 0 && premium_id != null">{{p.Price | currency:'USD'}}</span>
-                                    <span *ngIf="premium_id != 0 && premium_id != null"> {{p.Price * 0.9 | currency:'USD'}}</span>
+                                    <span *ngIf="premium_id != 0 && premium_id != null"> {{p.Price * 0.9 | currency:'USD'}}</span>-->
+                                    <span class="text-muted text-decoration-line-through" *ngIf="p.SpecialPrice != p.Price">{{p.Price | currency:'USD'}}</span>
+                                    <span>{{p.SpecialPrice | currency:'USD'}}</span>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
+                                <div class="text-center" *ngIf="premium_id != 0 && premium_id != null">
                                     <a class="btn btn-outline-dark mt-auto" href="#" (click)="addToCart(p)">Add to cart</a>
                                     <!-- <span *ngIf="userOwnedGames.Game_id == p.Game_id">Owned</span> -->
                                 </div>

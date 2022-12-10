@@ -3,5 +3,6 @@ export class Game {
     public Title: string;
     public Release_date: Date;
     public Price: number;
+    public SpecialPrice?: number;
     public ImageUrl: string;
 }
