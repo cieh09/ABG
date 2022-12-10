@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Checkout } from '../common/checkout';
 import { Friend } from '../common/friend';
 import { Game } from '../common/game';
+import { Genre } from '../common/genre';
 import { User } from '../common/user';
 
 @Injectable({
@@ -74,5 +75,9 @@ export class SharedService {
 
   verifyUserRegister(name: string): Observable<number>{
     return this.httpClient.get<number>(this.baseUrl + '/User/VerifyUserRegister?name=' +name)
+  }
+
+  getGenreByGameId(id: number): Observable<Genre>{
+    return this.httpClient.get<Genre>(this.baseUrl + '/Game/GetGameGenre?id=' +id)
   }
 }

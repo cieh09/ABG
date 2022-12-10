@@ -41,6 +41,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MembershipDialog } from './components/dialog copy/membership-dialog';
+import { GenreComponent } from './components/genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { MembershipDialog } from './components/dialog copy/membership-dialog';
     ShoppingCartStatusComponent,
     FriendDetailsComponent,
     DialogComponent, 
-    MembershipDialog
+    MembershipDialog, 
+    GenreComponent
   ],
   imports: [
       BrowserModule,

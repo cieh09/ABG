@@ -4,6 +4,7 @@ import { Game } from 'src/app/common/game';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/common/cart-item';
+import { Genre } from 'src/app/common/genre';
 
 @Component({
   selector: 'app-game-list',
@@ -15,6 +16,7 @@ export class GameListComponent implements OnInit {
   premium_id: number = 0;
   games: Game[] = [];
   userOwnedGames: Game[] = [];
+  genre: Genre = new Genre;
 
   constructor(private sharedService: SharedService,
      private route: ActivatedRoute, 
@@ -34,6 +36,7 @@ export class GameListComponent implements OnInit {
     // this.userOwnedGames = JSON.parse(sessionStorage.getItem('userOwnedGamesList'));
 
   }
+
 
   navigateToGame(g: Game){
     this.router.navigateByUrl('/details?id=' + g.Game_id)

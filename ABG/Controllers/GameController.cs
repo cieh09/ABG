@@ -100,30 +100,31 @@ namespace ABG.Controllers
         }
 
         [HttpGet("GetGameGenre")]
-        [EnableCors("default")]
-        public IActionResult GetGameGenre(int id)
+        public Genre GetGameGenre(int id)
         {
-            string q = @"SELECT * FROM Gamedb.Game G JOIN Gamedb.Game_Genre GG ON G.Game_id = GG.Game_id JOIN Genre R ON R.Genre_id = R.Genre_id where G.Game_id = '"+ id + @"';
- ";
+            string query = @"
+                SELECT R.* FROM Gamedb.Genre R join Gamedb.Game_Genre G on G.Genre_id = R.Genre_id join Gamedb.Game A on A.Game_id = G.Game_id where A.Game_id = '" + id + "'";
+            var sqlcmd = new MySqlCommand(query);
 
-            DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-            MySqlDataReader myReader;
 
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
+                sqlcmd.Connection = connection;
+
                 connection.Open();
-                using (MySqlCommand mySqlCommand = new MySqlCommand(q, connection))
+                Genre obj = new Genre();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    myReader = mySqlCommand.ExecuteReader();
-                    table.Load(myReader);
 
-                    myReader.Close();
-                    connection.Close();
+                    obj.Genre_id = Convert.ToInt32(reader[0]);
+                    obj.Mode_type = reader[1].ToString();
+                    obj.Genre_name = reader[2].ToString();
                 }
+                connection.Close();
+                return obj;
             }
-
-            return new JsonResult(table);
         }
 
         // works
