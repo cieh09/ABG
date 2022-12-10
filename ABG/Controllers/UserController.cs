@@ -32,42 +32,35 @@ namespace ABG.Controllers
         [Route("GetUserInfo")]
         public JsonResult GetUserInfo([FromBody] object userInput)
         {
-            if (userInput != null)
-            {
-                string str = userInput.ToString();
-                JObject jObject = JObject.Parse(str);
-
-                string name = (string)jObject.SelectToken("name");
-                string password = (string)jObject.SelectToken("password");
-
-                string query = @"
+            string str = userInput.ToString();
+            JObject jObject = JObject.Parse(str);
+        
+            string name = (string)jObject.SelectToken("name");
+            string password = (string)jObject.SelectToken("password");
+        
+            string query = @"
                 select * from User where Name = '" + name + @"' and User_password = '" + password + @"'
             ";
-
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-
-                var sqlcmd = new MySqlCommand(query);
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
-                {
-                    sqlcmd.Connection = connection;
-                    connection.Open();
-                    User user = new User();
-                    using var reader = sqlcmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        user.User_id = Convert.ToInt32(reader[0]);
-                        user.Name = reader[1].ToString();
-                        user.User_email = reader[2].ToString();
-                        user.User_password = reader[3].ToString();
-                    }
-                    connection.Close();
-                    return new JsonResult(user);
-                }
-            }
-            else
+        
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+        
+            var sqlcmd = new MySqlCommand(query);
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                return null;
+                sqlcmd.Connection = connection;
+                connection.Open();
+                User user = new User();
+                using var reader = sqlcmd.ExecuteReader();
+        
+                if (reader.Read())
+                {
+                    user.User_id = Convert.ToInt32(reader[0]);
+                    user.Name = reader[1].ToString();
+                    user.User_email = reader[2].ToString();
+                    user.User_password = reader[3].ToString();
+                }
+                connection.Close();
+                return new JsonResult(user);
             }
         }
 
@@ -81,36 +74,29 @@ namespace ABG.Controllers
         [HttpGet("GetUserInfoById")]
         public JsonResult GetUserInfoById(int id)
         {
-            if (id != 0)
-            {
-                string query = @"
+            string query = @"
                 select * from User where User_id = '" + id + "'";
-                var sqlcmd = new MySqlCommand(query);
+            var sqlcmd = new MySqlCommand(query);
 
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
 
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
-                {
-                    sqlcmd.Connection = connection;
-
-                    connection.Open();
-                    User obj = new User();
-                    using var reader = sqlcmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-
-                        obj.User_id = Convert.ToInt32(reader[0]);
-                        obj.Name = reader[1].ToString();
-                        obj.User_email = reader[2].ToString();
-                        obj.User_password = reader[3].ToString();
-                    }
-                    connection.Close();
-                    return new JsonResult(obj);
-                }
-            }
-            else
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                return null;
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                User obj = new User();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    obj.User_id = Convert.ToInt32(reader[0]);
+                    obj.Name = reader[1].ToString();
+                    obj.User_email = reader[2].ToString();
+                    obj.User_password = reader[3].ToString();
+                }
+                connection.Close();
+                return new JsonResult(obj);
             }
         }
 
@@ -122,51 +108,52 @@ namespace ABG.Controllers
         [HttpPost("WriteNewUserInfo")]
         public int WriteNewUserInfo(User userInput)
         {
-            if (userInput != null)
+            string query = @"insert into User (Name, User_email, User_password) values ('" + userInput.Name + @"', '" + userInput.User_email + @"', '" + userInput.User_password + @"')";
+        
+            var sqlcmd = new MySqlCommand(query);
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+        
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                string query = @"insert into User (Name, User_email, User_password) values ('" + userInput.Name + @"', '" + userInput.User_email + @"', '" + userInput.User_password + @"')";
-
-                var sqlcmd = new MySqlCommand(query);
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
-                {
-                    sqlcmd.Connection = connection;
-
-                    connection.Open();
-                    using var reader = sqlcmd.ExecuteReader();
-                    connection.Close();
-                    return GetCurrentMaxUserId(userInput);
-                }
+                sqlcmd.Connection = connection;
+        
+                connection.Open();
+                // User obj = new User();
+                using var reader = sqlcmd.ExecuteReader();
+                // if (reader.Read())
+                // {
+                //
+                //     obj.User_id = Convert.ToInt32(reader[0]);
+                //     obj.Name = reader[1].ToString();
+                //     obj.User_email = reader[2].ToString();
+                //     obj.User_password = reader[3].ToString();
+                // }
+                connection.Close();
+                return GetCurrentMaxUserId(userInput);
             }
-            else return 0;
         }
 
         public int GetCurrentMaxUserId(User userInput)
         {
-            if (userInput != null)
+             string query = @"select MAX(User_id) from Gamedb.User where Name = '" + userInput.Name + "' and User_password = '" + userInput.User_password + @"'";
+        
+            var sqlcmd = new MySqlCommand(query);
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+        
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                string query = @"select MAX(User_id) from Gamedb.User where Name = '" + userInput.Name + "' and User_password = '" + userInput.User_password + @"'";
-
-                var sqlcmd = new MySqlCommand(query);
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+                sqlcmd.Connection = connection;
+        
+                connection.Open();
+                User obj = new User();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    sqlcmd.Connection = connection;
-
-                    connection.Open();
-                    User obj = new User();
-                    using var reader = sqlcmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        obj.User_id = Convert.ToInt32(reader[0]);
-                    }
-                    connection.Close();
-                    return obj.User_id;
+                    obj.User_id = Convert.ToInt32(reader[0]);
                 }
+                connection.Close();
+                return obj.User_id;
             }
-            else return 0;
         }
 
         [HttpPut("UpdateUser")]
@@ -209,69 +196,60 @@ namespace ABG.Controllers
         [HttpGet("VerifyUserRegister")]
         public int VerifyUserRegister(string name)
         {
-            if (name != null)
-            {
-                string query = @"
+            string query = @"
                 select count(*) from Gamedb.User where Name = '" + name + "'";
-                var sqlcmd = new MySqlCommand(query);
+            var sqlcmd = new MySqlCommand(query);
 
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
 
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                int i = 0;
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    sqlcmd.Connection = connection;
 
-                    connection.Open();
-                    int i = 0;
-                    using var reader = sqlcmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-
-                        i = Convert.ToInt32(reader[0]);
-                    }
-                    connection.Close();
-                    return i;
+                    i = Convert.ToInt32(reader[0]);
                 }
+                connection.Close();
+                return i;
             }
-            else return 0;
         }
 
 
         [HttpGet("GetUserPremiumId")]
         public JsonResult GetUserPremiumId(int id)
         {
-            if (id != 0)
-            {
-                string query = @"
+
+            string query = @"
                  SELECT PremiumSale_id, User_id, Purchase_date, Expire_date FROM PermiumSale WHERE User_id = '" + id + "'";
 
-                var sqlcmd = new MySqlCommand(query);
+            var sqlcmd = new MySqlCommand(query);
 
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
 
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
-                {
-                    sqlcmd.Connection = connection;
-
-                    connection.Open();
-                    PremiumSale p_user = new PremiumSale();
-                    using var reader = sqlcmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        p_user.PremiumSale_id = Convert.ToInt32(reader[0]);
-                        p_user.User_id = Convert.ToInt32(reader[1]);
-                        p_user.Purchase_date = DateTime.Parse(reader[2].ToString());
-                        p_user.Expire_date = DateTime.Parse(reader[3].ToString());
-                    }
-                    connection.Close();
-                    return new JsonResult(p_user);
-                }
-            }
-            else
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                return null;
+                sqlcmd.Connection = connection;
+
+                connection.Open();
+                PremiumSale p_user = new PremiumSale();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    p_user.PremiumSale_id = Convert.ToInt32(reader[0]);
+                    p_user.User_id = Convert.ToInt32(reader[1]);
+                    p_user.Purchase_date = DateTime.Parse(reader[2].ToString());
+                    p_user.Expire_date = DateTime.Parse(reader[3].ToString());
+                }
+                connection.Close();
+                return new JsonResult(p_user);
             }
         }
+
       
     }
 }

@@ -28,7 +28,6 @@ namespace ABG.Controllers
         [HttpGet("GetFriends")]
         public JsonResult GetFriends(int user_id)
         {
-            if (user_id != 0) { 
             string query = @"
                 select Friend_id from Friends where User_id = '" + user_id + "'";
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -50,11 +49,6 @@ namespace ABG.Controllers
             }
             
             return new JsonResult(table);
-
-            }else
-            {
-                return null;
-            }
         }
 
         [HttpPut("DeleteFriend")]

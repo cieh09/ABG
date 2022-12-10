@@ -32,41 +32,36 @@ namespace ABG.Controllers
         [EnableCors("default")]
         public IActionResult GetGameGenre(int id)
         {
-            if (id != 0)
-            {
-                string q = @"SELECT * FROM Gamedb.Game G JOIN Gamedb.Game_Genre GG ON G.Game_id = GG.Game_id JOIN Genre R ON R.Genre_id = R.Genre_id where G.Game_id = '" + id + @"';
+            string q = @"SELECT * FROM Gamedb.Game G JOIN Gamedb.Game_Genre GG ON G.Game_id = GG.Game_id JOIN Genre R ON R.Genre_id = R.Genre_id where G.Game_id = '" + id + @"';
  ";
 
-                DataTable table = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-                MySqlDataReader myReader;
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+            MySqlDataReader myReader;
 
-                using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
-                {
-                    connection.Open();
-                    using (MySqlCommand mySqlCommand = new MySqlCommand(q, connection))
-                    {
-                        myReader = mySqlCommand.ExecuteReader();
-                        table.Load(myReader);
-
-                        myReader.Close();
-                        connection.Close();
-                    }
-                }
-
-                return new JsonResult(table);
-            }
-            else
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
-                return null;
+                connection.Open();
+                using (MySqlCommand mySqlCommand = new MySqlCommand(q, connection))
+                {
+                    myReader = mySqlCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    connection.Close();
+                }
             }
+
+            return new JsonResult(table);
         }
 
         // works
         [HttpGet("GetAllGamesByUserId")]
         public JsonResult GetAllGamesByUserId(int user_id)
         {
-            if (user_id != 0) { 
+            // string query = @"
+            //     select * from User_Buy_Game where User_id = '" + user_id + "'";
+
             string query = @"SELECT Game.Game_id, Title, Release_date, Price, ImageUrl FROM Game JOIN User_Buy_Game
                         ON User_Buy_Game.Game_id = Game.Game_id
                         WHERE User_Buy_Game.User_id = '" + user_id + "'";
@@ -89,10 +84,6 @@ namespace ABG.Controllers
             }
 
             return new JsonResult(table);
-            }else
-            {
-                return null;
-            }
         }
     }
 }

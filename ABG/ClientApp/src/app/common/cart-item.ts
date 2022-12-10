@@ -10,7 +10,7 @@ export class CartItem {
     constructor(game: Game){
         this.id = game.Game_id;
         this.image_Url = game.ImageUrl;
-        this.price = game.SpecialPrice || game.Price;
+        this.price = game.Price;
         this.quantity = 1;
         this.title = game.Title;
     }
