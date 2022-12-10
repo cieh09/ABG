@@ -20,3 +20,5 @@ npm i
 npm i -g @angular/cli@8.3.29
 ng build
 `
+## Error Handling 
+-- Try and Catch and If statements are used in backend and frontend code (However, there are a few known bugs which we didn't get time to fix as explained inside video)
