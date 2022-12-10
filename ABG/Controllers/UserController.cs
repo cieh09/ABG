@@ -34,16 +34,16 @@ namespace ABG.Controllers
         {
             string str = userInput.ToString();
             JObject jObject = JObject.Parse(str);
-
+        
             string name = (string)jObject.SelectToken("name");
             string password = (string)jObject.SelectToken("password");
-
+        
             string query = @"
                 select * from User where Name = '" + name + @"' and User_password = '" + password + @"'
             ";
-
+        
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-
+        
             var sqlcmd = new MySqlCommand(query);
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
@@ -51,7 +51,7 @@ namespace ABG.Controllers
                 connection.Open();
                 User user = new User();
                 using var reader = sqlcmd.ExecuteReader();
-
+        
                 if (reader.Read())
                 {
                     user.User_id = Convert.ToInt32(reader[0]);
@@ -106,40 +106,55 @@ namespace ABG.Controllers
         /// <param name="userInput"></param>
         /// <returns></returns>
         [HttpPost("WriteNewUserInfo")]
-        public JsonResult WriteNewUserInfo([FromBody] object userInput)
+        public int WriteNewUserInfo(User userInput)
         {
-            string str = userInput.ToString();
-            JObject jObject = JObject.Parse(str);
-
-            string name = (string)jObject.SelectToken("name");
-            string email = (string)jObject.SelectToken("email");
-            string password = (string)jObject.SelectToken("password");
-
-            string query = @"insert into User (Name, User_email, User_password) values ('" + name + @"', '" + email + @"', '" + password + @"')";
-
+            string query = @"insert into User (Name, User_email, User_password) values ('" + userInput.Name + @"', '" + userInput.User_email + @"', '" + userInput.User_password + @"')";
+        
             var sqlcmd = new MySqlCommand(query);
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
-
+        
             using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
             {
                 sqlcmd.Connection = connection;
+        
                 connection.Open();
-                User user = new User();
+                // User obj = new User();
                 using var reader = sqlcmd.ExecuteReader();
-
-                // 插入后没有返回值
-                if (reader.Read())
-                {
-                    user.User_id = Convert.ToInt32(reader[0]);
-                    user.Name = reader[1].ToString();
-                    user.User_email = reader[2].ToString();
-                    user.User_password = reader[3].ToString();
-                }
+                // if (reader.Read())
+                // {
+                //
+                //     obj.User_id = Convert.ToInt32(reader[0]);
+                //     obj.Name = reader[1].ToString();
+                //     obj.User_email = reader[2].ToString();
+                //     obj.User_password = reader[3].ToString();
+                // }
                 connection.Close();
-                return new JsonResult("Successfully write new user info to the database!");
+                return GetCurrentMaxUserId(userInput);
             }
         }
 
+        public int GetCurrentMaxUserId(User userInput)
+        {
+             string query = @"select MAX(User_id) from Gamedb.User where Name = '" + userInput.Name + "' and User_password = '" + userInput.User_password + @"'";
+        
+            var sqlcmd = new MySqlCommand(query);
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
+        
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                sqlcmd.Connection = connection;
+        
+                connection.Open();
+                User obj = new User();
+                using var reader = sqlcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    obj.User_id = Convert.ToInt32(reader[0]);
+                }
+                connection.Close();
+                return obj.User_id;
+            }
+        }
 
         [HttpPut("UpdateUser")]
         public HttpStatusCode UpdateUser(User userInfo)
@@ -234,5 +249,7 @@ namespace ABG.Controllers
                 return new JsonResult(p_user);
             }
         }
+
+      
     }
 }

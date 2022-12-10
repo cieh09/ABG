@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ["", [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$")]],
       password: ['', Validators.required],
       re_password: ['', Validators.required]
     });
@@ -52,14 +52,12 @@ export class RegisterComponent implements OnInit {
   validInfo(){
     this.shardService.validateUserInfo(this.registerForm.value).subscribe(data => {
       this.user = data;
+     
+      // TODO: 跳转到首页，或是user页面
+      // this.router.navigate(['/user-pages']);
+      // null 说明不存在
       if(this.user.Name == null){
-        this.shardService.writeNewUserInfo(this.registerForm.value).subscribe(data => {
-          this.user = data;
-        });
-        alert("Successfully create an account! You can now login with registered info.");
-        this.router.navigateByUrl('');
-        // TODO: 跳转到首页，或是user页面
-        // this.router.navigate(['/user-pages']);
+        this.getUserId();
       }
       else{
         alert("No such user!");
@@ -67,11 +65,45 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  getUserId(){
+    this.user.Name = this.registerForm.value.name.toString();
+    this.user.User_email = this.registerForm.value.email.toString();
+    this.user.User_password = this.registerForm.value.password.toString();
+    let temp_id: number = 0;
+    this.shardService.writeNewUserInfo(this.user).subscribe(data => {
+      temp_id = data;
+      console.log(temp_id);
+      sessionStorage.setItem('name', this.registerForm.value.name);
+      sessionStorage.setItem('email', this.registerForm.value.email);
+      sessionStorage.setItem('id', temp_id.toString());
+      sessionStorage.setItem('password', this.registerForm.value.password);
+    });
+
+    this.getPremiumId(temp_id);
+
+    this.getGamesByUserId(temp_id);
+
+    alert("Successfully create an account! You can now login with registered info.");
+    this.router.navigateByUrl('');
+  }
+
+  getPremiumId(temp_id){
+    this.shardService.getVaildMembership(temp_id).subscribe(data => {
+      sessionStorage.setItem('PremiumSale_id', data.PremiumSale_id);
+    });
+  }
+
+  getGamesByUserId(temp_id){
+    this.shardService.getGamesByUserId(temp_id).subscribe(data => {
+      sessionStorage.setItem('userOwnedGamesList', JSON.stringify(data));
+    });
+  }
+
   verifyUser(name){
     this.shardService.verifyUserRegister(name).subscribe(data => {
       if(data > 0){
         this._snackBar.open('User already registered.', '',{
-          duration: 2000
+          duration: 5000
         });
         window.location.reload();
       }else{

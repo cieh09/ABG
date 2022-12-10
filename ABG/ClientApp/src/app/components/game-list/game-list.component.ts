@@ -4,6 +4,7 @@ import { Game } from 'src/app/common/game';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/common/cart-item';
+import { Genre } from 'src/app/common/genre';
 
 @Component({
   selector: 'app-game-list',
@@ -15,6 +16,7 @@ export class GameListComponent implements OnInit {
   premium_id: number = 0;
   games: Game[] = [];
   userOwnedGames: Game[] = [];
+  genre: Genre = new Genre;
 
   constructor(private sharedService: SharedService,
      private route: ActivatedRoute, 
@@ -29,11 +31,12 @@ export class GameListComponent implements OnInit {
     });
 
     this.premium_id = JSON.parse(sessionStorage.getItem('PremiumSale_id'));
-    console.log(this.premium_id);
+    console.log("this.premium_id is: " + this.premium_id);
 
     // this.userOwnedGames = JSON.parse(sessionStorage.getItem('userOwnedGamesList'));
 
   }
+
 
   navigateToGame(g: Game){
     this.router.navigateByUrl('/details?id=' + g.Game_id)
@@ -64,10 +67,10 @@ export class GameListComponent implements OnInit {
 
   addToCart(game: Game){
 
-    if(this.premium_id != 0){
+    if(this.premium_id != 0 && this.premium_id != null){
       game.Price *= 0.9;
     }
-    // TODO: 会员情况下需要修改加入购物车的值 原值 * 0.9
+
     const cartGame = new CartItem(game);
     console.log(cartGame);
     console.log(game.Game_id, game.Price);

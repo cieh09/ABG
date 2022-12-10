@@ -40,6 +40,8 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MembershipDialog } from './components/dialog copy/membership-dialog';
+import { GenreComponent } from './components/genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ShoppingCartComponent,
     ShoppingCartStatusComponent,
     FriendDetailsComponent,
-    DialogComponent
+    DialogComponent, 
+    MembershipDialog, 
+    GenreComponent
   ],
   imports: [
       BrowserModule,

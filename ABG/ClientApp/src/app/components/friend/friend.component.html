@@ -19,8 +19,12 @@
       <td>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input formControlName="email" matInput required [(ngModel)]="user.User_email" value={{user.User_email}}>
+          <input type="email" [class.is-invalid]="userForm.get('email').invalid && userForm.get('email').touched"  formControlName="email" matInput required [(ngModel)]="user.User_email">
         </mat-form-field>
+        <div *ngIf="(userForm.get('email').invalid && userForm.get('email').touched) || userForm.get('email').dirty">
+          <small *ngIf="userForm.get('email').errors?.required" class="text-warning">Email is Required</small>
+          <small *ngIf="userForm.get('email').errors?.pattern" class="text-warning">Please enter a valid Email</small>
+        </div>
       </td>
   
       <td>

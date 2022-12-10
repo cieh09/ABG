@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
 import { Checkout } from 'src/app/common/checkout';
 import { CartService } from 'src/app/services/cart.service';
@@ -17,7 +18,7 @@ export class ShoppingCartComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantity: number = 0;
   checkoutObj: Checkout = new Checkout();
-  constructor(private cartService: CartService, private sharedService: SharedService) { }
+  constructor(private cartService: CartService, private sharedService: SharedService, private router: Router) { }
 
   ngOnInit() {
     this.getShoppingCart();
@@ -44,12 +45,25 @@ export class ShoppingCartComponent implements OnInit {
 
   checkout(){
     let user_id = JSON.parse(sessionStorage.getItem('id'));
-    if(user_id != 0){
+
+    if(user_id == 0 || user_id == null){
+      alert('Please login to checkout!');
+      this.router.navigateByUrl('login');
+      sessionStorage.clear();
+    }
+
+    if(user_id != 0 && user_id != null){
       for(let p of this.cartItems){
-        this.checkoutObj.User_id = user_id;
-        this.checkoutObj.Game_id = p.id;
-        this.sharedService.checkout(this.checkoutObj);
+        let tempCheckout = new Checkout();
+        tempCheckout.User_id = user_id;
+        // console.log('user_id ' + tempCheckout.User_id);
+        tempCheckout.Game_id = p.id;
+        // console.log('Game_id ' + tempCheckout.Game_id);
+        this.sharedService.checkout(tempCheckout).subscribe(data => {
+        });
       }
+      alert('Thank you for the purchase!');
+      this.router.navigateByUrl('archive');
     }
   }
 }

@@ -1,3 +1,13 @@
+<div class="page-content page-container">
+  <div class="row">
+    <section class="gradient" *ngFor="let option of membershipLengths" (click)="openDialog(option)"> 
+      <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
+      {{option}}-Day Membership
+    </section>
+  </div>
+</div>
 <div class="page-content page-container" id="page-content">
   <div class="padding">
     <div class="container d-flex justify-content-center">
@@ -10,7 +20,7 @@
                   <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
                     alt="User-Profile-Image">
                 </div>
-                <h6 class="f-w-600">Welcomem, {{name}}!</h6>
+                <h6 class="f-w-600">Welcome, {{name}}!</h6>
                 <!-- <p>Web Designer</p> -->
                 <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
               </div>
@@ -21,11 +31,11 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">Start Date</p>
-                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{membership.Purchase_date}}</h6>
+                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{formatDate(membership.Purchase_date)}}</h6>
                   </div>
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">End Date</p>
-                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{membership.Expire_date}}</h6>
+                    <h6 class="text-muted f-w-400" *ngIf="premium_id != 0">{{formatDate(membership.Expire_date)}}</h6>
                   </div>
                 </div>
               </div>

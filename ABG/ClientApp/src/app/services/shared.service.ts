@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Checkout } from '../common/checkout';
 import { Friend } from '../common/friend';
 import { Game } from '../common/game';
+import { Genre } from '../common/genre';
 import { User } from '../common/user';
 
 @Injectable({
@@ -36,7 +37,10 @@ export class SharedService {
     return this.httpClient.get<any>(this.baseUrl + '/User/GetUserInfoById?id=' + userInfo);
   }
 
-  writeNewUserInfo(userInfo): Observable<any>{
+  writeNewUserInfo(userInfo: User): Observable<any>{
+    // insert new user info
+    // and 
+    // return inserted user_id
     return this.httpClient.post<any>(this.baseUrl + '/User/WriteNewUserInfo', userInfo);
   }
 
@@ -61,13 +65,19 @@ export class SharedService {
     return this.httpClient.put<HttpResponse<any>>(this.baseUrl + '/Friend/DeleteFriend', friend);
   }
 
-  checkout(checkout: Checkout){
+  checkout(checkout: Checkout): Observable<any> {
     // var u_id = 'user_id=' + user_id;
     // var g_id = 'game_id=' + game_id;
-    this.httpClient.post<any>(this.baseUrl + 'Game/Checkout', checkout);
+    console.log('checkout user_id ' + checkout.User_id);
+    console.log('checkout game_id ' + checkout.Game_id);
+    return this.httpClient.post<any>(this.baseUrl + '/Game/Checkout', checkout);
   }
 
   verifyUserRegister(name: string): Observable<number>{
     return this.httpClient.get<number>(this.baseUrl + '/User/VerifyUserRegister?name=' +name)
+  }
+
+  getGenreByGameId(id: number): Observable<Genre>{
+    return this.httpClient.get<Genre>(this.baseUrl + '/Game/GetGameGenre?id=' +id)
   }
 }
